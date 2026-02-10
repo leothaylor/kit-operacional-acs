@@ -6,19 +6,17 @@
   <title>Kit Operacional ACS — Gestão Cognitiva de Campo</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Usando a versão UMD para garantir compatibilidade global e evitar ReferenceError -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
 
   <style>
     :root{
-      /* Guia (fixo): cor base */
-      --acs-teal: #78C7C7;        /* principal */
-      --acs-teal-dark: #66B6B6;   /* hover leve */
-      --acs-bg: #F4FBFB;         /* fundo clarinho */
-      --acs-ink: #0f172a;        /* texto */
-      --acs-muted: #475569;      /* texto secundário */
-      --acs-line: #e2e8f0;       /* linhas/bordas claras */
+      --acs-teal: #78C7C7;
+      --acs-teal-dark: #66B6B6;
+      --acs-bg: #F4FBFB;
+      --acs-ink: #0f172a;
+      --acs-muted: #475569;
+      --acs-line: #e2e8f0;
     }
 
     body{
@@ -37,26 +35,24 @@
       margin: 0 auto;
     }
 
-    /* Cores */
     .bg-teal-acs{ background-color: var(--acs-teal); }
     .text-teal-acs{ color: var(--acs-teal); }
     .border-teal-acs{ border-color: var(--acs-teal); }
 
-    .img-placeholder{
+    .img-frame{
       background-color: #eef2f7;
       border: 2px dashed #cbd5e1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #64748b;
-      font-size: 0.75rem;
       border-radius: 1rem;
       overflow: hidden;
       position: relative;
     }
-    .img-placeholder img{ width: 100%; height: 100%; object-fit: cover; }
+    .img-frame img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
-    /* Radar */
     .chart-wrapper{
       position: relative;
       height: 320px;
@@ -65,7 +61,6 @@
       margin: 0 auto;
     }
 
-    /* Botão flutuante */
     .float-btn{
       position: fixed;
       right: 16px;
@@ -86,7 +81,6 @@
     .float-btn:hover{ transform: scale(1.03); background-color: var(--acs-teal-dark); }
     .float-btn.is-hidden{ opacity: 0; pointer-events: none; }
 
-    /* Cards interação */
     .active-card-green{ border: 2px solid var(--acs-teal); background-color: rgba(120, 199, 199, 0.18); }
     .active-card-red{ border: 2px solid #fb7185; background-color: rgba(251, 113, 133, 0.10); }
     .inactive-card{ opacity: 0.55; filter: grayscale(1); cursor: pointer; border: 2px solid transparent; }
@@ -97,16 +91,30 @@
 
 <body>
   <!-- Botão Flutuante -->
-  <a id="floatCta" href="https://pay.hotmart.com/I101458561P?bid=1769808031894" target="_blank" class="float-btn" aria-label="Comprar agora">
+  <a id="floatCta"
+     href="https://pay.hotmart.com/I101458561P?bid=1769808031894"
+     target="_blank"
+     class="float-btn"
+     aria-label="Comprar agora">
     <span aria-hidden="true">🛒</span> GARANTIR MEU KIT
   </a>
 
   <!-- Navbar -->
   <nav class="bg-white/90 backdrop-blur-md border-b sticky top-0 z-50" style="border-color: var(--acs-line);">
     <div class="container-safe py-4 flex justify-between items-center">
-      <div class="font-black text-teal-acs flex items-center gap-2 tracking-tighter">
-        <span class="text-2xl" aria-hidden="true">📋</span> KIT ACS
+      <!-- Logo (suba em assets/logo.png) -->
+      <div class="flex items-center gap-3">
+        <img
+          src="assets/logo.png"
+          alt="Logo Kit ACS"
+          style="height: 34px; width: 34px;"
+          class="rounded-full"
+        />
+        <div class="font-black text-teal-acs tracking-tight leading-none">
+          KIT ACS
+        </div>
       </div>
+
       <a href="#offer" class="text-xs font-black bg-teal-acs text-white px-4 py-2 rounded-full uppercase tracking-widest">
         Obter Kit
       </a>
@@ -149,11 +157,9 @@
         </div>
       </div>
 
-      <div class="img-placeholder h-64 md:h-96">
-        <div class="p-8 text-center">
-          <p class="font-black" style="color: var(--acs-ink);">FOTO PRINCIPAL</p>
-          <p class="text-[10px] uppercase" style="color: var(--acs-muted);">Cena do ACS usando o kit com paciente</p>
-        </div>
+      <!-- FOTO PRINCIPAL -->
+      <div class="img-frame h-64 md:h-96">
+        <img src="assets/hero.jpg" alt="ACS utilizando o kit em visita" />
       </div>
     </div>
   </header>
@@ -195,8 +201,8 @@
 
       <div class="grid md:grid-cols-3 gap-8">
         <div class="space-y-4">
-          <div class="img-placeholder h-48">
-            <span class="p-4 text-center">FOTO: Leque das Fichas</span>
+          <div class="img-frame h-48">
+            <img src="assets/fichas.jpg" alt="Leque das fichas de acompanhamento" />
           </div>
           <h3 class="font-black text-teal-acs uppercase text-sm">Fichas de Acompanhamento</h3>
           <p class="text-xs leading-relaxed" style="color: var(--acs-muted);">
@@ -205,8 +211,8 @@
         </div>
 
         <div class="space-y-4">
-          <div class="img-placeholder h-48">
-            <span class="p-4 text-center">FOTO: Calendário Individual</span>
+          <div class="img-frame h-48">
+            <img src="assets/calendario-individual.jpg" alt="Calendário individual do ACS" />
           </div>
           <h3 class="font-black text-teal-acs uppercase text-sm">Calendário Individual</h3>
           <p class="text-xs leading-relaxed" style="color: var(--acs-muted);">
@@ -215,8 +221,8 @@
         </div>
 
         <div class="space-y-4">
-          <div class="img-placeholder h-48">
-            <span class="p-4 text-center">FOTO: Calendário de Equipe</span>
+          <div class="img-frame h-48">
+            <img src="assets/calendario-equipe.jpg" alt="Calendário de equipe" />
           </div>
           <h3 class="font-black text-teal-acs uppercase text-sm">Calendário de Equipe</h3>
           <p class="text-xs leading-relaxed" style="color: var(--acs-muted);">
@@ -312,12 +318,11 @@
         </p>
 
         <div class="mb-10">
-          <p class="text-yellow-500 font-black text-sm mb-3 animate-pulse">
-            Promoção inicial, veja se ainda da tempo, clique !
+          <p class="text-yellow-500 font-black text-sm mb-3">
+            Lote inicial com valor promocional (enquanto estiver disponível).
           </p>
-          
+
           <p class="line-through font-bold" style="color: #facc15; font-size: 0.9rem;">R$ 30,00</p>
-          
           <p class="text-5xl font-black tracking-tighter text-red-600">R$ 19,90</p>
         </div>
 
@@ -339,7 +344,6 @@
     const labels = ['Olhar Humano', 'Segurança Técnica', 'Paz Mental', 'Vínculo', 'Agilidade'];
 
     function initChart(){
-      // Verificação de segurança para garantir que a biblioteca Chart.js foi carregada
       if (typeof Chart === 'undefined') {
         console.warn('Chart.js ainda não carregado. Tentando novamente em 200ms...');
         setTimeout(initChart, 200);
@@ -437,7 +441,6 @@
       observer.observe(offer);
     }
 
-    // Inicialização segura
     window.addEventListener('load', () => {
       initChart();
       setupFloatingCtaHide();
