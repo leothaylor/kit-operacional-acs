@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Kit Operacional ACS — Gestão Cognitiva de Campo</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Usando a versão UMD para garantir compatibilidade global e evitar ReferenceError -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      /* Guia (fixo): cor base */
+      --acs-teal: #78C7C7;        /* principal */
+      --acs-teal-dark: #66B6B6;   /* hover leve */
+      --acs-bg: #F4FBFB;         /* fundo clarinho */
+      --acs-ink: #0f172a;        /* texto */
+      --acs-muted: #475569;      /* texto secundário */
+      --acs-line: #e2e8f0;       /* linhas/bordas claras */
+    }
+
+    body{
+      font-family: 'Inter', sans-serif;
+      background: var(--acs-bg);
+      color: var(--acs-ink);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      padding-bottom: calc(110px + env(safe-area-inset-bottom));
+    }
+
+    .container-safe{
+      width: 100%;
+      max-width: 1100px;
+      padding: 0 1.5rem;
+      margin: 0 auto;
+    }
+
+    /* Cores */
+    .bg-teal-acs{ background-color: var(--acs-teal); }
+    .text-teal-acs{ color: var(--acs-teal); }
+    .border-teal-acs{ border-color: var(--acs-teal); }
+
+    .img-placeholder{
+      background-color: #eef2f7;
+      border: 2px dashed #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      font-size: 0.75rem;
+      border-radius: 1rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .img-placeholder img{ width: 100%; height: 100%; object-fit: cover; }
+
+    /* Radar */
+    .chart-wrapper{
+      position: relative;
+      height: 320px;
+      width: 100%;
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    /* Botão flutuante */
+    .float-btn{
+      position: fixed;
+      right: 16px;
+      bottom: calc(16px + env(safe-area-inset-bottom));
+      z-index: 999;
+      background-color: var(--acs-teal);
+      color: #ffffff;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform .15s ease, background-color .15s ease, opacity .15s ease;
+      border: 1px solid rgba(15, 23, 42, .08);
+    }
+    .float-btn:hover{ transform: scale(1.03); background-color: var(--acs-teal-dark); }
+    .float-btn.is-hidden{ opacity: 0; pointer-events: none; }
+
+    /* Cards interação */
+    .active-card-green{ border: 2px solid var(--acs-teal); background-color: rgba(120, 199, 199, 0.18); }
+    .active-card-red{ border: 2px solid #fb7185; background-color: rgba(251, 113, 133, 0.10); }
+    .inactive-card{ opacity: 0.55; filter: grayscale(1); cursor: pointer; border: 2px solid transparent; }
+
+    a, button{ -webkit-tap-highlight-color: transparent; }
+  </style>
+</head>
+
+<body>
+  <!-- Botão Flutuante -->
+  <a id="floatCta" href="https://pay.hotmart.com/I101458561P?bid=1769808031894" target="_blank" class="float-btn" aria-label="Comprar agora">
+    <span aria-hidden="true">🛒</span> GARANTIR MEU KIT
+  </a>
+
+  <!-- Navbar -->
+  <nav class="bg-white/90 backdrop-blur-md border-b sticky top-0 z-50" style="border-color: var(--acs-line);">
+    <div class="container-safe py-4 flex justify-between items-center">
+      <div class="font-black text-teal-acs flex items-center gap-2 tracking-tighter">
+        <span class="text-2xl" aria-hidden="true">📋</span> KIT ACS
+      </div>
+      <a href="#offer" class="text-xs font-black bg-teal-acs text-white px-4 py-2 rounded-full uppercase tracking-widest">
+        Obter Kit
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="py-12 md:py-20">
+    <div class="container-safe grid md:grid-cols-2 gap-12 items-center">
+      <div class="text-center md:text-left">
+        <span class="inline-block px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-4"
+              style="background: rgba(120,199,199,.18); color: var(--acs-teal);">
+          Gestão Cognitiva de Campo
+        </span>
+
+        <h1 class="text-3xl md:text-5xl font-black leading-tight mb-6" style="color: var(--acs-ink);">
+          O kit encerra a obrigação para <span class="text-teal-acs underline italic">liberar o cuidado</span>.
+        </h1>
+
+        <p class="mb-6 text-sm md:text-lg" style="color: var(--acs-muted);">
+          Tire o peso de carregar o sistema na cabeça. O kit espelha o sistema no papel para que você possa olhar para a pessoa.
+        </p>
+
+        <div class="mb-8 rounded-2xl border p-4"
+             style="border-color: var(--acs-line); background: rgba(255,255,255,.75);">
+          <p class="text-xs font-black uppercase tracking-widest mb-2" style="color: var(--acs-muted);">
+            O que vem no kit (pronto pra imprimir)
+          </p>
+          <p class="text-sm" style="color: var(--acs-muted);">
+            Fichas de acompanhamento + Calendário Individual + Calendário de Equipe + Manual.
+            <span class="font-semibold" style="color: var(--acs-ink);">Contra registro feito, não tem “eu acho”.</span>
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+          <a href="#offer" class="bg-teal-acs text-white font-black px-8 py-4 rounded-xl transition-all text-center border"
+             style="border-color: rgba(15,23,42,.08);">
+            QUERO ME ORGANIZAR
+          </a>
+        </div>
+      </div>
+
+      <div class="img-placeholder h-64 md:h-96">
+        <div class="p-8 text-center">
+          <p class="font-black" style="color: var(--acs-ink);">FOTO PRINCIPAL</p>
+          <p class="text-[10px] uppercase" style="color: var(--acs-muted);">Cena do ACS usando o kit com paciente</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- O que muda na prática -->
+  <section class="py-12 bg-white">
+    <div class="container-safe">
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <h2 class="text-xl md:text-2xl font-black mb-2 uppercase tracking-tighter" style="color: var(--acs-ink);">
+          O que muda na visita, na prática
+        </h2>
+        <p class="text-sm" style="color: var(--acs-muted);">
+          A diferença não é “mais bonito”. É menos carga mental e mais presença.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="p-6 rounded-2xl bg-slate-50 border-l-4" style="border-left-color:#fb7185;">
+          <p class="font-black text-xs uppercase mb-2" style="color:#fb7185;">Sem o kit:</p>
+          <p class="text-sm italic" style="color: var(--acs-muted);">
+            "Você conversa carregando uma lista invisível na cabeça. A atenção fica fragmentada entre ouvir e não esquecer de perguntar."
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl border-l-4" style="border-left-color: var(--acs-teal); background: rgba(120,199,199,.10);">
+          <p class="text-teal-acs font-black text-xs uppercase mb-2">Com o kit:</p>
+          <p class="text-sm" style="color: var(--acs-muted);">
+            "Você encerra o bloco obrigatório no papel e troca de modo: observação, vínculo e cuidado real."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Arsenal Operacional -->
+  <section id="arsenal" class="py-16">
+    <div class="container-safe">
+      <h2 class="text-2xl font-black text-center mb-12" style="color: var(--acs-ink);">O Arsenal do ACS</h2>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="space-y-4">
+          <div class="img-placeholder h-48">
+            <span class="p-4 text-center">FOTO: Leque das Fichas</span>
+          </div>
+          <h3 class="font-black text-teal-acs uppercase text-sm">Fichas de Acompanhamento</h3>
+          <p class="text-xs leading-relaxed" style="color: var(--acs-muted);">
+            Espelhamento das linhas de cuidado (Gestantes, TB, Diabetes, Crianças) para segurança dos dados no território.
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <div class="img-placeholder h-48">
+            <span class="p-4 text-center">FOTO: Calendário Individual</span>
+          </div>
+          <h3 class="font-black text-teal-acs uppercase text-sm">Calendário Individual</h3>
+          <p class="text-xs leading-relaxed" style="color: var(--acs-muted);">
+            Tira o futuro da cabeça. VD’s, retornos e metas visíveis numa folha.
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <div class="img-placeholder h-48">
+            <span class="p-4 text-center">FOTO: Calendário de Equipe</span>
+          </div>
+          <h3 class="font-black text-teal-acs uppercase text-sm">Calendário de Equipe</h3>
+          <p class="text-xs leading-relaxed" style="color: var(--acs-muted);">
+            Sincroniza com Médico e Enfermagem. Planejamento de mutirões e organização da UBS.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Radar -->
+  <section id="visualizer" class="py-16">
+    <div class="container-safe">
+      <h2 class="text-xl md:text-2xl font-black mb-3 text-center uppercase tracking-widest" style="color: var(--acs-ink);">
+        Impacto na Qualidade do Olhar
+      </h2>
+      <p class="text-center text-sm mb-10" style="color: var(--acs-muted);">
+        Clique nos cenários pra comparar o modo “carga mental” vs “gestão cognitiva”.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="chart-wrapper rounded-2xl border bg-white p-4" style="border-color: var(--acs-line);">
+          <canvas id="performanceChart" aria-label="Gráfico radar comparando Sem Kit e Com Kit" role="img"></canvas>
+        </div>
+
+        <div class="space-y-4">
+          <div id="card-bad" onclick="updateView('bad')"
+               class="p-5 rounded-2xl border-l-4 active-card-red transition-all bg-white border"
+               style="border-color: var(--acs-line); border-left-color:#fb7185;">
+            <h4 class="font-black text-xs mb-1 uppercase tracking-tighter" style="color:#fb7185;">
+              Cenário: Carga Mental Alta
+            </h4>
+            <p class="text-[12px]" style="color: var(--acs-muted);">
+              Sem o kit, a mente gasta energia “rechecando” perguntas do sistema durante a conversa.
+            </p>
+          </div>
+
+          <div id="card-good" onclick="updateView('good')"
+               class="p-5 rounded-2xl border-l-4 inactive-card transition-all bg-white border"
+               style="border-color: var(--acs-line); border-left-color: var(--acs-teal);">
+            <h4 class="font-black text-teal-acs text-xs mb-1 uppercase tracking-tighter">
+              Cenário: Gestão Cognitiva
+            </h4>
+            <p class="text-[12px]" style="color: var(--acs-muted);">
+              Com o kit, o essencial fica encerrado no papel. A atenção fica disponível para o paciente.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 bg-white">
+    <div class="container-safe max-w-2xl mx-auto">
+      <h2 class="text-center font-black mb-10 uppercase text-xs tracking-[0.3em]" style="color: #94a3b8;">
+        Dúvidas Técnicas
+      </h2>
+
+      <div class="space-y-6">
+        <div class="border-b pb-4" style="border-color: var(--acs-line);">
+          <h4 class="font-black text-sm mb-2" style="color: var(--acs-ink);">"Isso substitui o tablet?"</h4>
+          <p class="text-sm" style="color: var(--acs-muted);">
+            Não. O kit espelha o sistema para segurança técnica no portão do paciente, onde o digital muitas vezes falha ou trava.
+          </p>
+        </div>
+
+        <div class="border-b pb-4" style="border-color: var(--acs-line);">
+          <h4 class="font-black text-sm mb-2" style="color: var(--acs-ink);">"Por que usar papel em 2024?"</h4>
+          <p class="text-sm" style="color: var(--acs-muted);">
+            Pelo <b>encerramento cognitivo</b>. O papel descarrega a obrigação da memória para o mundo físico, liberando o cuidado no presente.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Oferta -->
+  <section id="offer" class="py-20 text-center">
+    <div class="container-safe">
+      <div class="bg-white p-10 md:p-14 rounded-[2.5rem] border max-w-lg mx-auto overflow-hidden relative"
+           style="border-color: rgba(120,199,199,.45);">
+        <div class="absolute top-0 right-0 bg-teal-acs text-white px-6 py-2 font-black text-[10px] rounded-bl-2xl uppercase tracking-widest">
+          Acesso Imediato
+        </div>
+
+        <h2 class="text-3xl font-black mb-4 tracking-tighter italic" style="color: var(--acs-ink);">
+          Recupere o seu olhar.
+        </h2>
+
+        <p class="text-sm mb-8" style="color: var(--acs-muted);">
+          O kit completo (Fichas + Calendários + Manual) pronto para imprimir.
+        </p>
+
+        <div class="mb-10">
+          <p class="text-yellow-500 font-black text-sm mb-3 animate-pulse">
+            Promoção inicial, veja se ainda da tempo, clique !
+          </p>
+          
+          <p class="line-through font-bold" style="color: #facc15; font-size: 0.9rem;">R$ 30,00</p>
+          
+          <p class="text-5xl font-black tracking-tighter text-red-600">R$ 19,90</p>
+        </div>
+
+        <a href="https://pay.hotmart.com/I101458561P?bid=1769808031894" target="_blank"
+           class="block w-full bg-teal-acs text-white font-black py-5 rounded-2xl uppercase tracking-widest text-sm border"
+           style="border-color: rgba(15,23,42,.08);">
+          Garantir Meu Kit
+        </a>
+
+        <p class="mt-5 text-[12px]" style="color: #94a3b8;">
+          Acesso imediato • Você imprime e leva pro campo.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    let chart;
+    const labels = ['Olhar Humano', 'Segurança Técnica', 'Paz Mental', 'Vínculo', 'Agilidade'];
+
+    function initChart(){
+      // Verificação de segurança para garantir que a biblioteca Chart.js foi carregada
+      if (typeof Chart === 'undefined') {
+        console.warn('Chart.js ainda não carregado. Tentando novamente em 200ms...');
+        setTimeout(initChart, 200);
+        return;
+      }
+
+      const canvas = document.getElementById('performanceChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      chart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels,
+          datasets: [
+            {
+              label: 'Sem Kit',
+              data: [30, 45, 10, 20, 50],
+              borderColor: '#fb7185',
+              backgroundColor: 'rgba(251, 113, 133, 0.18)',
+              pointRadius: 2,
+              pointBackgroundColor: '#fb7185',
+              hidden: false
+            },
+            {
+              label: 'Com Kit',
+              data: [95, 98, 100, 95, 85],
+              borderColor: '#78C7C7',
+              backgroundColor: 'rgba(120, 199, 199, 0.20)',
+              pointRadius: 2,
+              pointBackgroundColor: '#78C7C7',
+              hidden: true
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              angleLines: { color: 'rgba(2, 6, 23, 0.06)' },
+              grid: { color: 'rgba(2, 6, 23, 0.06)' },
+              pointLabels: {
+                color: '#64748b',
+                font: { size: 10, weight: 'bold' }
+              },
+              ticks: { display: false },
+              suggestedMin: 0,
+              suggestedMax: 100
+            }
+          },
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+
+    function updateView(mode){
+      if (!chart) return;
+      const bad = document.getElementById('card-bad');
+      const good = document.getElementById('card-good');
+
+      if(mode === 'bad'){
+        chart.setDatasetVisibility(0, true);
+        chart.setDatasetVisibility(1, false);
+
+        bad.className = "p-5 rounded-2xl border-l-4 active-card-red transition-all bg-white border";
+        good.className = "p-5 rounded-2xl border-l-4 inactive-card transition-all bg-white border";
+        bad.style.borderLeftColor = '#fb7185';
+        good.style.borderLeftColor = 'var(--acs-teal)';
+      } else {
+        chart.setDatasetVisibility(0, false);
+        chart.setDatasetVisibility(1, true);
+
+        good.className = "p-5 rounded-2xl border-l-4 active-card-green transition-all bg-white border";
+        bad.className = "p-5 rounded-2xl border-l-4 inactive-card transition-all bg-white border";
+        bad.style.borderLeftColor = '#fb7185';
+        good.style.borderLeftColor = 'var(--acs-teal)';
+      }
+
+      chart.update();
+    }
+
+    function setupFloatingCtaHide(){
+      const floatCta = document.getElementById('floatCta');
+      const offer = document.getElementById('offer');
+      if(!floatCta || !offer) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting) floatCta.classList.add('is-hidden');
+          else floatCta.classList.remove('is-hidden');
+        });
+      }, { threshold: 0.25 });
+
+      observer.observe(offer);
+    }
+
+    // Inicialização segura
+    window.addEventListener('load', () => {
+      initChart();
+      setupFloatingCtaHide();
+    });
+  </script>
+</body>
+</html>
