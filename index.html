@@ -41,7 +41,7 @@
 
     .img-frame{
       background-color: #eef2f7;
-      border: 1px solid rgba(15, 23, 42, .08);
+      border: 2px dashed #cbd5e1;
       border-radius: 1rem;
       overflow: hidden;
       position: relative;
@@ -71,7 +71,7 @@
       padding: 12px 18px;
       border-radius: 999px;
       font-weight: 900;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -90,34 +90,32 @@
 </head>
 
 <body>
-  <!-- Link de compra (usei com UTM; se quiser sem UTM, eu removo) -->
-  <!-- BASE: https://pay.hotmart.com/I101458561P -->
-  <script>
-    const BUY_URL = "https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional";
-  </script>
-
-  <!-- Botão Flutuante -->
-  <a id="floatCta" href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
-     target="_blank" class="float-btn" aria-label="Comprar agora">
+  <!-- CTA flutuante -->
+  <a
+    id="floatCta"
+    href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
+    target="_blank"
+    class="float-btn"
+    aria-label="Comprar agora"
+  >
     <span aria-hidden="true">🛒</span> GARANTIR MEU KIT
   </a>
 
   <!-- Navbar -->
   <nav class="bg-white/90 backdrop-blur-md border-b sticky top-0 z-50" style="border-color: var(--acs-line);">
     <div class="container-safe py-4 flex justify-between items-center">
-      <!-- LOGO + TEXTO -->
+      <!-- LOGO + NOME
+           Suba seu logo do Instagram dentro da pasta /assets e renomeie para:
+           assets/logo-ig.png
+      -->
       <div class="flex items-center gap-3">
-        <!-- Troque o arquivo do logo para: assets/logo.png (ou assets/logo.jpg) -->
         <img
-          src="assets/logo.png"
-          alt="Logo Kit ACS"
-          class="h-10 w-10 rounded-full border"
-          style="border-color: rgba(15,23,42,.08);"
-          onerror="this.style.display='none';"
+          src="assets/logo-ig.png"
+          alt="Logo"
+          class="h-10 w-10 rounded-full"
+          style="object-fit: cover;"
         />
-        <div class="font-black text-teal-acs tracking-tighter">
-          KIT ACS
-        </div>
+        <div class="font-black text-teal-acs tracking-tighter">KIT ACS</div>
       </div>
 
       <a href="#offer" class="text-xs font-black bg-teal-acs text-white px-4 py-2 rounded-full uppercase tracking-widest">
@@ -139,7 +137,7 @@
           O kit encerra a obrigação para <span class="text-teal-acs underline italic">liberar o cuidado</span>.
         </h1>
 
-        <p class="mb-6 text-base md:text-lg" style="color: var(--acs-muted);">
+        <p class="mb-6 text-sm md:text-lg" style="color: var(--acs-muted);">
           Tire o peso de carregar o sistema na cabeça. O kit espelha o sistema no papel para que você possa olhar para a pessoa.
         </p>
 
@@ -148,7 +146,7 @@
           <p class="text-xs font-black uppercase tracking-widest mb-2" style="color: var(--acs-muted);">
             O que vem no kit (pronto pra imprimir)
           </p>
-          <p class="text-[15px] md:text-base" style="color: var(--acs-muted);">
+          <p class="text-sm" style="color: var(--acs-muted);">
             Fichas de acompanhamento + Calendário Individual + Calendário de Equipe + Manual.
             <span class="font-semibold" style="color: var(--acs-ink);">Contra registro feito, não tem “eu acho”.</span>
           </p>
@@ -162,9 +160,10 @@
         </div>
       </div>
 
-      <!-- HERO IMAGE -->
+      <!-- HERO IMG -->
       <div class="img-frame h-64 md:h-96">
-        <img src="assets/hero.jpg" alt="ACS usando o kit com paciente" loading="lazy">
+        <!-- Arquivo: /assets/hero.jpg -->
+        <img src="assets/hero.jpg" alt="ACS usando o kit com paciente" />
       </div>
     </div>
   </header>
@@ -176,7 +175,7 @@
         <h2 class="text-xl md:text-2xl font-black mb-2 uppercase tracking-tighter" style="color: var(--acs-ink);">
           O que muda na visita, na prática
         </h2>
-        <p class="text-base md:text-[15px]" style="color: var(--acs-muted);">
+        <p class="text-sm" style="color: var(--acs-muted);">
           A diferença não é “mais bonito”. É menos carga mental e mais presença.
         </p>
       </div>
@@ -184,14 +183,14 @@
       <div class="grid md:grid-cols-2 gap-6">
         <div class="p-6 rounded-2xl bg-slate-50 border-l-4" style="border-left-color:#fb7185;">
           <p class="font-black text-xs uppercase mb-2" style="color:#fb7185;">Sem o kit:</p>
-          <p class="text-[15px] italic" style="color: var(--acs-muted);">
+          <p class="text-sm italic" style="color: var(--acs-muted);">
             "Você conversa carregando uma lista invisível na cabeça. A atenção fica fragmentada entre ouvir e não esquecer de perguntar."
           </p>
         </div>
 
         <div class="p-6 rounded-2xl border-l-4" style="border-left-color: var(--acs-teal); background: rgba(120,199,199,.10);">
           <p class="text-teal-acs font-black text-xs uppercase mb-2">Com o kit:</p>
-          <p class="text-[15px]" style="color: var(--acs-muted);">
+          <p class="text-sm" style="color: var(--acs-muted);">
             "Você encerra o bloco obrigatório no papel e troca de modo: observação, vínculo e cuidado real."
           </p>
         </div>
@@ -205,32 +204,38 @@
       <h2 class="text-2xl font-black text-center mb-12" style="color: var(--acs-ink);">O Arsenal do ACS</h2>
 
       <div class="grid md:grid-cols-3 gap-8">
+        <!-- FICHAS -->
         <div class="space-y-4">
           <div class="img-frame h-48">
-            <img src="assets/fichas.jpg" alt="Leque das fichas de acompanhamento" loading="lazy">
+            <!-- Arquivo: /assets/fichas.jpg -->
+            <img src="assets/fichas.jpg" alt="Leque das fichas do kit" />
           </div>
           <h3 class="font-black text-teal-acs uppercase text-sm">Fichas de Acompanhamento</h3>
-          <p class="text-sm leading-relaxed" style="color: var(--acs-muted);">
+          <p class="text-xs leading-relaxed" style="color: var(--acs-muted);">
             Espelhamento das linhas de cuidado (Gestantes, TB, Diabetes, Crianças) para segurança dos dados no território.
           </p>
         </div>
 
+        <!-- CAL INDIVIDUAL -->
         <div class="space-y-4">
           <div class="img-frame h-48">
-            <img src="assets/calendario-individual.jpg" alt="Calendário individual do ACS" loading="lazy">
+            <!-- Arquivo: /assets/calendario-individual.jpg -->
+            <img src="assets/calendario-individual.jpg" alt="Calendário individual do ACS" />
           </div>
           <h3 class="font-black text-teal-acs uppercase text-sm">Calendário Individual</h3>
-          <p class="text-sm leading-relaxed" style="color: var(--acs-muted);">
+          <p class="text-xs leading-relaxed" style="color: var(--acs-muted);">
             Tira o futuro da cabeça. VD’s, retornos e metas visíveis numa folha.
           </p>
         </div>
 
+        <!-- CAL EQUIPE -->
         <div class="space-y-4">
           <div class="img-frame h-48">
-            <img src="assets/calendario-equipe.jpg" alt="Calendário de equipe" loading="lazy">
+            <!-- Arquivo: /assets/calendario-equipe.jpg -->
+            <img src="assets/calendario-equipe.jpg" alt="Calendário de equipe" />
           </div>
           <h3 class="font-black text-teal-acs uppercase text-sm">Calendário de Equipe</h3>
-          <p class="text-sm leading-relaxed" style="color: var(--acs-muted);">
+          <p class="text-xs leading-relaxed" style="color: var(--acs-muted);">
             Sincroniza com Médico e Enfermagem. Planejamento de mutirões e organização da UBS.
           </p>
         </div>
@@ -244,7 +249,7 @@
       <h2 class="text-xl md:text-2xl font-black mb-3 text-center uppercase tracking-widest" style="color: var(--acs-ink);">
         Impacto na Qualidade do Olhar
       </h2>
-      <p class="text-center text-base md:text-[15px] mb-10" style="color: var(--acs-muted);">
+      <p class="text-center text-sm mb-10" style="color: var(--acs-muted);">
         Clique nos cenários pra comparar o modo “carga mental” vs “gestão cognitiva”.
       </p>
 
@@ -260,7 +265,7 @@
             <h4 class="font-black text-xs mb-1 uppercase tracking-tighter" style="color:#fb7185;">
               Cenário: Carga Mental Alta
             </h4>
-            <p class="text-[13px]" style="color: var(--acs-muted);">
+            <p class="text-[12px]" style="color: var(--acs-muted);">
               Sem o kit, a mente gasta energia “rechecando” perguntas do sistema durante a conversa.
             </p>
           </div>
@@ -271,7 +276,7 @@
             <h4 class="font-black text-teal-acs text-xs mb-1 uppercase tracking-tighter">
               Cenário: Gestão Cognitiva
             </h4>
-            <p class="text-[13px]" style="color: var(--acs-muted);">
+            <p class="text-[12px]" style="color: var(--acs-muted);">
               Com o kit, o essencial fica encerrado no papel. A atenção fica disponível para o paciente.
             </p>
           </div>
@@ -289,15 +294,15 @@
 
       <div class="space-y-6">
         <div class="border-b pb-4" style="border-color: var(--acs-line);">
-          <h4 class="font-black text-base mb-2" style="color: var(--acs-ink);">"Isso substitui o tablet?"</h4>
-          <p class="text-base" style="color: var(--acs-muted);">
+          <h4 class="font-black text-sm mb-2" style="color: var(--acs-ink);">"Isso substitui o tablet?"</h4>
+          <p class="text-sm" style="color: var(--acs-muted);">
             Não. O kit espelha o sistema para segurança técnica no portão do paciente, onde o digital muitas vezes falha ou trava.
           </p>
         </div>
 
         <div class="border-b pb-4" style="border-color: var(--acs-line);">
-          <h4 class="font-black text-base mb-2" style="color: var(--acs-ink);">"Por que usar papel em 2024?"</h4>
-          <p class="text-base" style="color: var(--acs-muted);">
+          <h4 class="font-black text-sm mb-2" style="color: var(--acs-ink);">"Por que usar papel em 2026?"</h4>
+          <p class="text-sm" style="color: var(--acs-muted);">
             Pelo <b>encerramento cognitivo</b>. O papel descarrega a obrigação da memória para o mundo físico, liberando o cuidado no presente.
           </p>
         </div>
@@ -318,23 +323,25 @@
           Recupere o seu olhar.
         </h2>
 
-        <p class="text-base mb-8" style="color: var(--acs-muted);">
+        <p class="text-sm mb-8" style="color: var(--acs-muted);">
           O kit completo (Fichas + Calendários + Manual) pronto para imprimir.
         </p>
 
         <div class="mb-10">
-          <p class="text-yellow-600 font-black text-sm mb-3">
+          <p class="text-yellow-500 font-black text-sm mb-3">
             Lote inicial com valor promocional (enquanto estiver disponível).
           </p>
 
-          <p class="line-through font-bold" style="color: #f59e0b; font-size: 1rem;">R$ 30,00</p>
+          <p class="line-through font-bold" style="color: #facc15; font-size: 0.9rem;">R$ 30,00</p>
           <p class="text-5xl font-black tracking-tighter text-red-600">R$ 19,90</p>
         </div>
 
-        <a href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
-           target="_blank"
-           class="block w-full bg-teal-acs text-white font-black py-5 rounded-2xl uppercase tracking-widest text-sm border"
-           style="border-color: rgba(15,23,42,.08);">
+        <a
+          href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
+          target="_blank"
+          class="block w-full bg-teal-acs text-white font-black py-5 rounded-2xl uppercase tracking-widest text-sm border"
+          style="border-color: rgba(15,23,42,.08);"
+        >
           Garantir Meu Kit
         </a>
 
@@ -346,15 +353,12 @@
   </section>
 
   <script>
-    // garante que BUY_URL atualize todos os CTAs
-    document.getElementById("floatCta").href = BUY_URL;
-    document.querySelectorAll('a[href*="pay.hotmart.com/I101458561P"]').forEach(a => a.href = BUY_URL);
-
     let chart;
     const labels = ['Olhar Humano', 'Segurança Técnica', 'Paz Mental', 'Vínculo', 'Agilidade'];
 
     function initChart(){
       if (typeof Chart === 'undefined') {
+        console.warn('Chart.js ainda não carregado. Tentando novamente em 200ms...');
         setTimeout(initChart, 200);
         return;
       }
