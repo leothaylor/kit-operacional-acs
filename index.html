@@ -9,6 +9,18 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
 
+  <!-- ✅ MAILERLITE UNIVERSAL (cole aqui exatamente o snippet do MailerLite) -->
+  <!-- Você encontra em: Forms > Embedded forms > seu form > Embed form into your website > JavaScript snippet -->
+  <script>
+    (function(w,d,e,u,f,l,n){
+      w[f]=w[f]||function(){(w[f].q=w[f].q||[]).push(arguments);};
+      l=d.createElement(e);l.async=1;l.src=u;
+      n=d.getElementsByTagName(e)[0];n.parentNode.insertBefore(l,n);
+    })(window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2140936');
+  </script>
+  <!-- ✅ FIM MAILERLITE UNIVERSAL -->
+
   <style>
     :root{
       --acs-teal: #78C7C7;
@@ -296,7 +308,7 @@
     </div>
   </section>
 
-  <!-- ✅ NOVA SEÇÃO: CHECKLIST GRÁTIS -->
+  <!-- ✅ CHECKLIST GRÁTIS -->
   <section id="checklist" class="py-16">
     <div class="container-safe">
       <div class="max-w-3xl mx-auto text-center mb-10">
@@ -338,13 +350,8 @@
             Receber por e-mail
           </p>
 
-          <!-- ✅ COLE AQUI O SCRIPT DO EMBED FORM DO MAILERLITE -->
-          <!-- MAILERLITE EMBED AQUI -->
-          <!-- Exemplo (apenas ilustrativo):
-          <script>
-            (function(w,d,e,u,f,l,n){...})(window,document,'script','https://...');
-          </script>
-          -->
+          <!-- ✅ ESTE DIV É O FORM (é ele que faz aparecer o campo de e-mail + botão) -->
+          <div class="ml-embedded" data-form="MMObUs"></div>
         </div>
       </div>
 
