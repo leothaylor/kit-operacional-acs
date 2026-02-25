@@ -53,9 +53,7 @@
       display: block;
     }
 
-    .img-click{
-      cursor: zoom-in;
-    }
+    .img-click{ cursor: zoom-in; }
     .img-overlay{
       position: absolute;
       inset: 0;
@@ -179,23 +177,27 @@
 
 <body>
   <!-- Botão Flutuante -->
-  <a id="floatCta" href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional
-" target="_blank" class="float-btn" aria-label="Comprar agora">
+  <a id="floatCta" href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional" target="_blank" class="float-btn" aria-label="Comprar agora">
     <span aria-hidden="true">🛒</span> GARANTIR MEU KIT
   </a>
 
   <!-- Navbar -->
   <nav class="bg-white/90 backdrop-blur-md border-b sticky top-0 z-50" style="border-color: var(--acs-line);">
     <div class="container-safe py-4 flex justify-between items-center">
-      <!-- Logo (mantido intacto, só usando o arquivo) -->
       <div class="font-black text-teal-acs flex items-center gap-2 tracking-tighter">
         <img src="assets/logo-ig.png" alt="KIT ACS" class="w-7 h-7 rounded-full" />
         <span class="text-sm font-black tracking-tight">KIT ACS</span>
       </div>
 
-      <a href="#offer" class="text-xs font-black bg-teal-acs text-white px-4 py-2 rounded-full uppercase tracking-widest">
-        Obter Kit
-      </a>
+      <div class="flex items-center gap-2">
+        <a href="#checklist" class="text-xs font-black px-4 py-2 rounded-full uppercase tracking-widest border"
+           style="border-color: rgba(120,199,199,.55); color: var(--acs-ink); background: rgba(120,199,199,.10);">
+          Checklist grátis
+        </a>
+        <a href="#offer" class="text-xs font-black bg-teal-acs text-white px-4 py-2 rounded-full uppercase tracking-widest">
+          Obter Kit
+        </a>
+      </div>
     </div>
   </nav>
 
@@ -216,7 +218,6 @@
           Tire o peso de carregar o sistema na cabeça. O kit espelha o sistema no papel para que você possa olhar para a pessoa.
         </p>
 
-        <!-- Bullets curtas (novo) -->
         <ul class="mx-auto md:mx-0 mb-7 max-w-md text-left space-y-2">
           <li class="flex items-start gap-2 text-sm" style="color: var(--acs-muted);">
             <span aria-hidden="true">✅</span> <span><b style="color:var(--acs-ink);">Pronto pra imprimir</b> e levar pro campo.</span>
@@ -241,19 +242,21 @@
         </div>
 
         <div class="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
-          <a href="#offer" class="bg-teal-acs text-white font-black px-8 py-4 rounded-xl transition-all text-center border"
+          <a href="#checklist" class="bg-teal-acs text-white font-black px-8 py-4 rounded-xl transition-all text-center border"
              style="border-color: rgba(15,23,42,.08);">
-            QUERO ME ORGANIZAR
+            QUERO O CHECKLIST GRÁTIS
+          </a>
+          <a href="#offer" class="bg-white font-black px-8 py-4 rounded-xl transition-all text-center border"
+             style="border-color: rgba(120,199,199,.55); color: var(--acs-ink);">
+            VER O KIT COMPLETO
           </a>
         </div>
 
-        <!-- Microconfiança no CTA (novo) -->
         <p class="mt-3 text-[12px] font-semibold" style="color:#94a3b8;">
           Compra segura • Hotmart
         </p>
       </div>
 
-      <!-- Hero image -->
       <div class="img-wrap h-64 md:h-96 img-click" data-modal-src="assets/hero.jpg" data-modal-title="Foto principal">
         <img src="assets/hero.jpg" alt="ACS usando o kit com paciente" />
         <div class="img-overlay" aria-hidden="true">
@@ -290,6 +293,64 @@
           </p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ✅ NOVA SEÇÃO: CHECKLIST GRÁTIS -->
+  <section id="checklist" class="py-16">
+    <div class="container-safe">
+      <div class="max-w-3xl mx-auto text-center mb-10">
+        <h2 class="text-2xl md:text-3xl font-black mb-3 tracking-tighter" style="color: var(--acs-ink);">
+          Receba gratuitamente o Checklist de Blindagem da Produção do ACS
+        </h2>
+        <p class="text-sm md:text-base" style="color: var(--acs-muted);">
+          Antes de fechar o mês: revise. Prove. Controle. <span class="font-semibold" style="color: var(--acs-ink);">Registro é proteção.</span>
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 items-start">
+        <div class="bg-white rounded-[2rem] border p-7 md:p-8"
+             style="border-color: rgba(120,199,199,.45);">
+          <p class="text-xs font-black uppercase tracking-widest mb-3" style="color: var(--acs-muted);">
+            O que você recebe (PDF)
+          </p>
+
+          <ul class="text-sm space-y-2" style="color: var(--acs-muted);">
+            <li class="flex items-start gap-2"><span aria-hidden="true">✅</span><span>Checklist de fechamento do mês (janela móvel)</span></li>
+            <li class="flex items-start gap-2"><span aria-hidden="true">✅</span><span>Blindagem de indicadores e segurança operacional</span></li>
+            <li class="flex items-start gap-2"><span aria-hidden="true">✅</span><span>Arquivo pronto pra imprimir e usar na prancheta</span></li>
+          </ul>
+
+          <div class="mt-5 rounded-2xl border p-4"
+               style="border-color: var(--acs-line); background: rgba(120,199,199,.10);">
+            <p class="text-sm font-semibold" style="color: var(--acs-ink);">
+              “Se o sistema cair amanhã, você consegue provar o que fez hoje?”
+            </p>
+            <p class="text-xs mt-1" style="color: var(--acs-muted);">
+              Contra registro feito, não tem “eu acho”.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-[2rem] border p-7 md:p-8"
+             style="border-color: rgba(120,199,199,.45);">
+          <p class="text-xs font-black uppercase tracking-widest mb-4" style="color: var(--acs-muted);">
+            Receber por e-mail
+          </p>
+
+          <!-- ✅ COLE AQUI O SCRIPT DO EMBED FORM DO MAILERLITE -->
+          <!-- MAILERLITE EMBED AQUI -->
+          <!-- Exemplo (apenas ilustrativo):
+          <script>
+            (function(w,d,e,u,f,l,n){...})(window,document,'script','https://...');
+          </script>
+          -->
+        </div>
+      </div>
+
+      <p class="text-center text-[11px] mt-6 font-semibold" style="color:#94a3b8;">
+        Ao se cadastrar, você entra no grupo “Leads – Checklist Blindagem Janela Móvel – Kit Operacional”.
+      </p>
     </div>
   </section>
 
@@ -347,7 +408,6 @@
       <p class="text-center text-sm mb-3" style="color: var(--acs-muted);">
         Clique nos cenários pra comparar o modo “carga mental” vs “gestão cognitiva”.
       </p>
-      <!-- Disclaimers (novo) -->
       <p class="text-center text-[11px] mb-10 font-semibold" style="color:#94a3b8;">
         Comparação ilustrativa (baseada na prática) para mostrar o efeito de “encerrar” as obrigações no papel.
       </p>
@@ -442,14 +502,12 @@
           <p class="text-5xl font-black tracking-tighter text-red-600">R$ 19,90</p>
         </div>
 
-        <a href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional
-" target="_blank"
+        <a href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional" target="_blank"
            class="block w-full bg-teal-acs text-white font-black py-5 rounded-2xl uppercase tracking-widest text-sm border"
            style="border-color: rgba(15,23,42,.08);">
           Garantir Meu Kit
         </a>
 
-        <!-- Confiança + extras (novo) -->
         <div class="mt-5 space-y-1">
           <p class="text-[12px]" style="color: #94a3b8;">
             Compra segura • Hotmart
@@ -462,7 +520,7 @@
     </div>
   </section>
 
-  <!-- Modal (novo) -->
+  <!-- Modal -->
   <div id="imgModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-label="Visualizador de imagem">
     <div class="modal-card">
       <div class="modal-top">
@@ -578,7 +636,6 @@
       observer.observe(offer);
     }
 
-    // Modal helpers
     function setupImageModal(){
       const modal = document.getElementById('imgModal');
       const modalImg = document.getElementById('modalImg');
@@ -624,4 +681,3 @@
   </script>
 </body>
 </html>
-
