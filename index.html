@@ -9,8 +9,6 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
 
-  <!-- ✅ MAILERLITE UNIVERSAL (cole aqui exatamente o snippet do MailerLite) -->
-  <!-- Você encontra em: Forms > Embedded forms > seu form > Embed form into your website > JavaScript snippet -->
   <script>
     (function(w,d,e,u,f,l,n){
       w[f]=w[f]||function(){(w[f].q=w[f].q||[]).push(arguments);};
@@ -19,8 +17,6 @@
     })(window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
     ml('account', '2140936');
   </script>
-  <!-- ✅ FIM MAILERLITE UNIVERSAL -->
-
   <style>
     :root{
       --acs-teal: #78C7C7;
@@ -95,25 +91,41 @@
       margin: 0 auto;
     }
 
+    /* ESTILIZAÇÃO DO NOVO BOTÃO FLUTUANTE */
     .float-btn{
       position: fixed;
-      right: 16px;
       bottom: calc(16px + env(safe-area-inset-bottom));
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 999;
       background-color: var(--acs-teal);
       color: #ffffff;
-      padding: 12px 18px;
+      padding: 12px 20px;
       border-radius: 999px;
       font-weight: 900;
-      font-size: 0.8rem;
+      font-size: 0.95rem;
       display: flex;
       align-items: center;
-      gap: 8px;
-      transition: transform .15s ease, background-color .15s ease, opacity .15s ease;
-      border: 1px solid rgba(15, 23, 42, .08);
+      justify-content: center;
+      gap: 12px;
+      width: calc(100% - 32px);
+      max-width: 400px;
+      box-shadow: 0 8px 24px rgba(2, 6, 23, 0.20);
+      border: 2px solid #ffffff;
+      transition: transform .15s ease, background-color .15s ease;
     }
-    .float-btn:hover{ transform: scale(1.03); background-color: var(--acs-teal-dark); }
-    .float-btn.is-hidden{ opacity: 0; pointer-events: none; }
+    .float-btn:hover{ 
+      background-color: var(--acs-teal-dark); 
+      transform: translateX(-50%) scale(1.02); 
+    }
+    .float-price {
+      background: #ffffff;
+      color: var(--acs-ink);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 900;
+    }
 
     .active-card-green{ border: 2px solid var(--acs-teal); background-color: rgba(120, 199, 199, 0.18); }
     .active-card-red{ border: 2px solid #fb7185; background-color: rgba(251, 113, 133, 0.10); }
@@ -188,12 +200,11 @@
 </head>
 
 <body>
-  <!-- Botão Flutuante -->
   <a id="floatCta" href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional" target="_blank" class="float-btn" aria-label="Comprar agora">
-    <span aria-hidden="true">🛒</span> GARANTIR MEU KIT
+    <span>GARANTIR MEU KIT</span>
+    <span class="float-price">R$ 19,90</span>
   </a>
 
-  <!-- Navbar -->
   <nav class="bg-white/90 backdrop-blur-md border-b sticky top-0 z-50" style="border-color: var(--acs-line);">
     <div class="container-safe py-4 flex justify-between items-center">
       <div class="font-black text-teal-acs flex items-center gap-2 tracking-tighter">
@@ -213,7 +224,6 @@
     </div>
   </nav>
 
-  <!-- Hero -->
   <header class="py-12 md:py-20">
     <div class="container-safe grid md:grid-cols-2 gap-12 items-center">
       <div class="text-center md:text-left">
@@ -278,7 +288,6 @@
     </div>
   </header>
 
-  <!-- O que muda na prática -->
   <section class="py-12 bg-white">
     <div class="container-safe">
       <div class="max-w-3xl mx-auto text-center mb-12">
@@ -308,7 +317,6 @@
     </div>
   </section>
 
-  <!-- ✅ CHECKLIST GRÁTIS -->
   <section id="checklist" class="py-16">
     <div class="container-safe">
       <div class="max-w-3xl mx-auto text-center mb-10">
@@ -350,7 +358,6 @@
             Receber por e-mail
           </p>
 
-          <!-- ✅ ESTE DIV É O FORM (é ele que faz aparecer o campo de e-mail + botão) -->
           <div class="ml-embedded" data-form="MMObUs"></div>
         </div>
       </div>
@@ -361,7 +368,6 @@
     </div>
   </section>
 
-  <!-- Arsenal Operacional -->
   <section id="arsenal" class="py-16">
     <div class="container-safe">
       <h2 class="text-2xl font-black text-center mb-12" style="color: var(--acs-ink);">O Arsenal do ACS</h2>
@@ -406,7 +412,6 @@
     </div>
   </section>
 
-  <!-- Radar -->
   <section id="visualizer" class="py-16">
     <div class="container-safe">
       <h2 class="text-xl md:text-2xl font-black mb-3 text-center uppercase tracking-widest" style="color: var(--acs-ink);">
@@ -451,7 +456,6 @@
     </div>
   </section>
 
-  <!-- FAQ -->
   <section class="py-16 bg-white">
     <div class="container-safe max-w-2xl mx-auto">
       <h2 class="text-center font-black mb-10 uppercase text-xs tracking-[0.3em]" style="color: #94a3b8;">
@@ -483,7 +487,6 @@
     </div>
   </section>
 
-  <!-- Oferta -->
   <section id="offer" class="py-20 text-center">
     <div class="container-safe">
       <div class="bg-white p-10 md:p-14 rounded-[2.5rem] border max-w-lg mx-auto overflow-hidden relative"
@@ -527,7 +530,6 @@
     </div>
   </section>
 
-  <!-- Modal -->
   <div id="imgModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-label="Visualizador de imagem">
     <div class="modal-card">
       <div class="modal-top">
@@ -628,21 +630,6 @@
       chart.update();
     }
 
-    function setupFloatingCtaHide(){
-      const floatCta = document.getElementById('floatCta');
-      const offer = document.getElementById('offer');
-      if(!floatCta || !offer) return;
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if(entry.isIntersecting) floatCta.classList.add('is-hidden');
-          else floatCta.classList.remove('is-hidden');
-        });
-      }, { threshold: 0.25 });
-
-      observer.observe(offer);
-    }
-
     function setupImageModal(){
       const modal = document.getElementById('imgModal');
       const modalImg = document.getElementById('modalImg');
@@ -682,8 +669,8 @@
 
     window.addEventListener('load', () => {
       initChart();
-      setupFloatingCtaHide();
       setupImageModal();
+      // O script que escondia o botão (setupFloatingCtaHide) foi intencionalmente removido.
     });
   </script>
 </body>
