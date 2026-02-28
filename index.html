@@ -92,7 +92,7 @@
       margin: 0 auto;
     }
 
-    /* BOTÃO FLUTUANTE (SEM SOMBRA — padrão limpo) */
+    /* BOTÃO FLUTUANTE (mais curto) */
     .float-btn{
       position: fixed;
       bottom: calc(16px + env(safe-area-inset-bottom));
@@ -101,7 +101,7 @@
       z-index: 999;
       background-color: var(--acs-teal);
       color: #ffffff;
-      padding: 12px 20px;
+      padding: 12px 18px;
       border-radius: 999px;
       font-weight: 900;
       font-size: 0.95rem;
@@ -109,9 +109,9 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
-      width: calc(100% - 32px);
-      max-width: 400px;
-      box-shadow: none; /* removido (sem sombra) */
+      width: min(220px, calc(100% - 32px)); /* reduzido */
+      max-width: 220px; /* reduzido */
+      box-shadow: none;
       border: 2px solid #ffffff;
       outline: 2px solid rgba(102,182,182,.55);
       transition: transform .15s ease, background-color .15s ease;
@@ -299,7 +299,6 @@
 
         <!-- CTA principal (checkout normal) + CTA secundário (checkout com bump) + checklist -->
         <div class="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
-          <!-- PRINCIPAL: checkout normal (mantém UTM original) -->
           <a href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
              target="_blank"
              class="bg-teal-acs text-white font-black px-8 py-4 rounded-xl transition-all text-center border"
@@ -307,14 +306,12 @@
             GARANTIR MEU KIT • R$ 19,90
           </a>
 
-          <!-- NOVO: checkout com bump (link oficial) -->
           <a href="https://pay.hotmart.com/I101458561P?checkoutMode=10"
              target="_blank"
              class="btn-secondary font-black px-8 py-4 rounded-xl transition-all text-center">
             BLINDAGEM COMPLETA (KIT + APS 360)
           </a>
 
-          <!-- CHECKLIST -->
           <a href="#checklist"
              class="bg-white font-black px-8 py-4 rounded-xl transition-all text-center border"
              style="border-color: rgba(120,199,199,.55); color: var(--acs-ink);">
@@ -322,13 +319,11 @@
           </a>
         </div>
 
-        <!-- Ancoragem matemática curta no topo -->
         <p class="mt-3 text-[12px] font-semibold" style="color:#94a3b8;">
           De <span style="text-decoration:line-through;">R$ 30,00</span> por <b style="color:var(--acs-ink);">R$ 19,90</b> •
           Economize <b style="color:var(--acs-ink);">R$ 10,10</b> • Compra segura (Hotmart)
         </p>
 
-        <!-- Microcopy da oferta complementar (sem explicar "bump") -->
         <div class="mt-4 inline-flex flex-wrap items-center justify-center md:justify-start gap-2">
           <span class="btn-secondary-pill">opcional</span>
           <p class="text-[12px] font-semibold" style="color:#94a3b8;">
@@ -470,7 +465,7 @@
     </div>
   </section>
 
-  <!-- BLOCO NOVO: Blindagem complementar (opcional) -->
+  <!-- BLOCO: apenas 2 links (Kit normal + Kit+Manual) -->
   <section id="blindagem" class="py-12">
     <div class="container-safe">
       <div class="max-w-3xl mx-auto text-center">
@@ -489,7 +484,6 @@
         </p>
 
         <div class="flex flex-col sm:flex-row gap-3 justify-center">
-          <!-- principal (normal) -->
           <a href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
              target="_blank"
              class="inline-block bg-teal-acs text-white font-black px-8 py-4 rounded-2xl uppercase tracking-widest text-sm border"
@@ -497,7 +491,6 @@
             Garantir só o Kit
           </a>
 
-          <!-- combo/bump -->
           <a href="https://pay.hotmart.com/I101458561P?checkoutMode=10"
              target="_blank"
              class="inline-block btn-secondary font-black px-8 py-4 rounded-2xl uppercase tracking-widest text-sm">
@@ -508,31 +501,6 @@
         <p class="mt-3 text-[12px] font-semibold" style="color:#94a3b8;">
           Compra segura • Hotmart • Acesso imediato
         </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA NO MEIO (pós Arsenal) — compra direta -->
-  <section class="py-10">
-    <div class="container-safe text-center">
-      <a href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
-         target="_blank"
-         class="inline-block bg-teal-acs text-white font-black px-10 py-4 rounded-2xl uppercase tracking-widest text-sm border"
-         style="border-color: rgba(15,23,42,.08);">
-        Garantir meu kit agora • R$ 19,90
-      </a>
-      <p class="mt-2 text-[12px] font-semibold" style="color:#94a3b8;">
-        De <span style="text-decoration:line-through;">R$ 30,00</span> por <b style="color:var(--acs-ink);">R$ 19,90</b> •
-        Economize <b style="color:var(--acs-ink);">R$ 10,10</b> • Acesso imediato
-      </p>
-
-      <!-- lembrete do combo sem competir -->
-      <div class="mt-3">
-        <a href="https://pay.hotmart.com/I101458561P?checkoutMode=10"
-           target="_blank"
-           class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl font-black text-sm uppercase tracking-widest btn-secondary">
-          Blindagem completa (Kit + APS 360)
-        </a>
       </div>
     </div>
   </section>
@@ -612,31 +580,7 @@
     </div>
   </section>
 
-  <!-- CTA APÓS FAQ (principal + opção combo) -->
-  <section class="py-10">
-    <div class="container-safe text-center">
-      <div class="flex flex-col sm:flex-row gap-3 justify-center">
-        <a href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
-           target="_blank"
-           class="inline-block bg-teal-acs text-white font-black px-10 py-4 rounded-2xl uppercase tracking-widest text-sm border"
-           style="border-color: rgba(15,23,42,.08);">
-          Garantir meu kit • acesso imediato
-        </a>
-
-        <a href="https://pay.hotmart.com/I101458561P?checkoutMode=10"
-           target="_blank"
-           class="inline-block btn-secondary font-black px-10 py-4 rounded-2xl uppercase tracking-widest text-sm">
-          Blindagem completa (Kit + Manual)
-        </a>
-      </div>
-
-      <p class="mt-2 text-[12px] font-semibold" style="color:#94a3b8;">
-        De <span style="text-decoration:line-through;">R$ 30,00</span> por <b style="color:var(--acs-ink);">R$ 19,90</b> •
-        Economize <b style="color:var(--acs-ink);">R$ 10,10</b> • Hotmart
-      </p>
-    </div>
-  </section>
-
+  <!-- OFERTA FINAL (mantém 2 links, sem duplicação colada antes) -->
   <section id="offer" class="py-20 text-center">
     <div class="container-safe">
       <div class="bg-white p-10 md:p-14 rounded-[2.5rem] border max-w-lg mx-auto overflow-hidden relative"
@@ -666,7 +610,6 @@
           </p>
         </div>
 
-        <!-- principal (normal) -->
         <a href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
            target="_blank"
            class="block w-full bg-teal-acs text-white font-black py-5 rounded-2xl uppercase tracking-widest text-sm border"
@@ -674,7 +617,6 @@
           Garantir Meu Kit
         </a>
 
-        <!-- novo (combo/bump) -->
         <a href="https://pay.hotmart.com/I101458561P?checkoutMode=10"
            target="_blank"
            class="block w-full mt-3 btn-secondary font-black py-5 rounded-2xl uppercase tracking-widest text-sm">
@@ -834,7 +776,6 @@
     window.addEventListener('load', () => {
       initChart();
       setupImageModal();
-      // setupFloatingCtaHide removido intencionalmente (CTA sempre visível)
     });
   </script>
 </body>
