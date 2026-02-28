@@ -17,6 +17,7 @@
     })(window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
     ml('account', '2140936');
   </script>
+
   <style>
     :root{
       --acs-teal: #78C7C7;
@@ -91,7 +92,7 @@
       margin: 0 auto;
     }
 
-    /* ESTILIZAÇÃO DO NOVO BOTÃO FLUTUANTE */
+    /* BOTÃO FLUTUANTE (SEM SOMBRA — padrão limpo) */
     .float-btn{
       position: fixed;
       bottom: calc(16px + env(safe-area-inset-bottom));
@@ -110,15 +111,16 @@
       gap: 12px;
       width: calc(100% - 32px);
       max-width: 400px;
-      box-shadow: 0 8px 24px rgba(2, 6, 23, 0.20);
+      box-shadow: none; /* removido (sem sombra) */
       border: 2px solid #ffffff;
+      outline: 2px solid rgba(102,182,182,.55);
       transition: transform .15s ease, background-color .15s ease;
     }
-    .float-btn:hover{ 
-      background-color: var(--acs-teal-dark); 
-      transform: translateX(-50%) scale(1.02); 
+    .float-btn:hover{
+      background-color: var(--acs-teal-dark);
+      transform: translateX(-50%) scale(1.02);
     }
-    .float-price {
+    .float-price{
       background: #ffffff;
       color: var(--acs-ink);
       padding: 4px 10px;
@@ -127,8 +129,8 @@
       font-weight: 900;
     }
 
-    .active-card-green{ border: 2px solid var(--acs-teal); background-color: rgba(120, 199, 199, 0.18); }
-    .active-card-red{ border: 2px solid #fb7185; background-color: rgba(251, 113, 133, 0.10); }
+    .active-card-green{ border: 2px solid var(--acs-teal); background-color: rgba(120,199,199,0.18); }
+    .active-card-red{ border: 2px solid #fb7185; background-color: rgba(251,113,133,0.10); }
     .inactive-card{ opacity: 0.55; filter: grayscale(1); cursor: pointer; border: 2px solid transparent; }
 
     a, button{ -webkit-tap-highlight-color: transparent; }
@@ -137,7 +139,7 @@
     .modal-backdrop{
       position: fixed;
       inset: 0;
-      background: rgba(2, 6, 23, 0.70);
+      background: rgba(2,6,23,0.70);
       backdrop-filter: blur(8px);
       display: none;
       align-items: center;
@@ -200,7 +202,12 @@
 </head>
 
 <body>
-  <a id="floatCta" href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional" target="_blank" class="float-btn" aria-label="Comprar agora">
+  <!-- CTA flutuante mantém link e UTM original -->
+  <a id="floatCta"
+     href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
+     target="_blank"
+     class="float-btn"
+     aria-label="Comprar agora">
     <span>GARANTIR MEU KIT</span>
     <span class="float-price">R$ 19,90</span>
   </a>
@@ -213,17 +220,20 @@
       </div>
 
       <div class="flex items-center gap-2">
-        <a href="#checklist" class="text-xs font-black px-4 py-2 rounded-full uppercase tracking-widest border"
+        <a href="#checklist"
+           class="text-xs font-black px-4 py-2 rounded-full uppercase tracking-widest border"
            style="border-color: rgba(120,199,199,.55); color: var(--acs-ink); background: rgba(120,199,199,.10);">
           Checklist grátis
         </a>
-        <a href="#offer" class="text-xs font-black bg-teal-acs text-white px-4 py-2 rounded-full uppercase tracking-widest">
+        <a href="#offer"
+           class="text-xs font-black bg-teal-acs text-white px-4 py-2 rounded-full uppercase tracking-widest">
           Obter Kit
         </a>
       </div>
     </div>
   </nav>
 
+  <!-- HERO -->
   <header class="py-12 md:py-20">
     <div class="container-safe grid md:grid-cols-2 gap-12 items-center">
       <div class="text-center md:text-left">
@@ -263,19 +273,26 @@
           </p>
         </div>
 
+        <!-- CTA principal = compra (direto Hotmart) | secundário = checklist -->
         <div class="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
-          <a href="#checklist" class="bg-teal-acs text-white font-black px-8 py-4 rounded-xl transition-all text-center border"
+          <a href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
+             target="_blank"
+             class="bg-teal-acs text-white font-black px-8 py-4 rounded-xl transition-all text-center border"
              style="border-color: rgba(15,23,42,.08);">
-            QUERO O CHECKLIST GRÁTIS
+            GARANTIR MEU KIT • R$ 19,90
           </a>
-          <a href="#offer" class="bg-white font-black px-8 py-4 rounded-xl transition-all text-center border"
+
+          <a href="#checklist"
+             class="bg-white font-black px-8 py-4 rounded-xl transition-all text-center border"
              style="border-color: rgba(120,199,199,.55); color: var(--acs-ink);">
-            VER O KIT COMPLETO
+            QUERO O CHECKLIST GRÁTIS
           </a>
         </div>
 
+        <!-- Ancoragem matemática curta no topo -->
         <p class="mt-3 text-[12px] font-semibold" style="color:#94a3b8;">
-          Compra segura • Hotmart
+          De <span style="text-decoration:line-through;">R$ 30,00</span> por <b style="color:var(--acs-ink);">R$ 19,90</b> •
+          Economize <b style="color:var(--acs-ink);">R$ 10,10</b> • Compra segura (Hotmart)
         </p>
       </div>
 
@@ -412,6 +429,22 @@
     </div>
   </section>
 
+  <!-- CTA NO MEIO (pós Arsenal) — compra direta -->
+  <section class="py-10">
+    <div class="container-safe text-center">
+      <a href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
+         target="_blank"
+         class="inline-block bg-teal-acs text-white font-black px-10 py-4 rounded-2xl uppercase tracking-widest text-sm border"
+         style="border-color: rgba(15,23,42,.08);">
+        Garantir meu kit agora • R$ 19,90
+      </a>
+      <p class="mt-2 text-[12px] font-semibold" style="color:#94a3b8;">
+        De <span style="text-decoration:line-through;">R$ 30,00</span> por <b style="color:var(--acs-ink);">R$ 19,90</b> •
+        Economize <b style="color:var(--acs-ink);">R$ 10,10</b> • Acesso imediato
+      </p>
+    </div>
+  </section>
+
   <section id="visualizer" class="py-16">
     <div class="container-safe">
       <h2 class="text-xl md:text-2xl font-black mb-3 text-center uppercase tracking-widest" style="color: var(--acs-ink);">
@@ -487,6 +520,22 @@
     </div>
   </section>
 
+  <!-- CTA APÓS FAQ (reduz fricção — compra direta) -->
+  <section class="py-10">
+    <div class="container-safe text-center">
+      <a href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
+         target="_blank"
+         class="inline-block bg-teal-acs text-white font-black px-10 py-4 rounded-2xl uppercase tracking-widest text-sm border"
+         style="border-color: rgba(15,23,42,.08);">
+        Garantir meu kit • acesso imediato
+      </a>
+      <p class="mt-2 text-[12px] font-semibold" style="color:#94a3b8;">
+        De <span style="text-decoration:line-through;">R$ 30,00</span> por <b style="color:var(--acs-ink);">R$ 19,90</b> •
+        Economize <b style="color:var(--acs-ink);">R$ 10,10</b> • Hotmart
+      </p>
+    </div>
+  </section>
+
   <section id="offer" class="py-20 text-center">
     <div class="container-safe">
       <div class="bg-white p-10 md:p-14 rounded-[2.5rem] border max-w-lg mx-auto overflow-hidden relative"
@@ -510,9 +559,15 @@
 
           <p class="line-through font-bold" style="color: #facc15; font-size: 0.9rem;">R$ 30,00</p>
           <p class="text-5xl font-black tracking-tighter text-red-600">R$ 19,90</p>
+
+          <!-- Ancoragem matemática explícita -->
+          <p class="mt-2 text-[12px] font-semibold" style="color:#94a3b8;">
+            Economize <b style="color:var(--acs-ink);">R$ 10,10</b> (de R$ 30,00 por R$ 19,90)
+          </p>
         </div>
 
-        <a href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional" target="_blank"
+        <a href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
+           target="_blank"
            class="block w-full bg-teal-acs text-white font-black py-5 rounded-2xl uppercase tracking-widest text-sm border"
            style="border-color: rgba(15,23,42,.08);">
           Garantir Meu Kit
@@ -530,6 +585,7 @@
     </div>
   </section>
 
+  <!-- Modal -->
   <div id="imgModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-label="Visualizador de imagem">
     <div class="modal-card">
       <div class="modal-top">
@@ -670,7 +726,7 @@
     window.addEventListener('load', () => {
       initChart();
       setupImageModal();
-      // O script que escondia o botão (setupFloatingCtaHide) foi intencionalmente removido.
+      // setupFloatingCtaHide removido intencionalmente (CTA sempre visível)
     });
   </script>
 </body>
