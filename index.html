@@ -109,8 +109,8 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
-      width: min(220px, calc(100% - 32px)); /* reduzido */
-      max-width: 220px; /* reduzido */
+      width: min(220px, calc(100% - 32px));
+      max-width: 220px;
       box-shadow: none;
       border: 2px solid #ffffff;
       outline: 2px solid rgba(102,182,182,.55);
@@ -158,6 +158,79 @@
     .inactive-card{ opacity: 0.55; filter: grayscale(1); cursor: pointer; border: 2px solid transparent; }
 
     a, button{ -webkit-tap-highlight-color: transparent; }
+
+    /* ===========================
+       PROVAS SOCIAIS (CARROSSEL)
+       =========================== */
+    .proofs-track{
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: min(320px, 80vw);
+      gap: 14px;
+      overflow-x: auto;
+      padding: 6px 4px 14px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .proofs-track::-webkit-scrollbar{ height: 8px; }
+    .proofs-track::-webkit-scrollbar-track{ background: rgba(2,6,23,.04); border-radius: 999px; }
+    .proofs-track::-webkit-scrollbar-thumb{ background: rgba(120,199,199,.55); border-radius: 999px; }
+
+    .proof-card{
+      scroll-snap-align: start;
+      background: rgba(255,255,255,.90);
+      border: 1px solid var(--acs-line);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+    .proof-head{
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--acs-line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: rgba(255,255,255,.92);
+    }
+    .proof-tag{
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--acs-muted);
+    }
+    .proof-badge{
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--acs-teal);
+      background: rgba(120,199,199,.14);
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(120,199,199,.35);
+      white-space: nowrap;
+    }
+    .proof-img{
+      width: 100%;
+      height: 420px;
+      background: #eef2f7;
+    }
+    .proof-img img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .proof-foot{
+      padding: 12px 14px 14px;
+    }
+    .proof-foot p{
+      margin: 0;
+      font-size: 12px;
+      color: var(--acs-muted);
+      line-height: 1.35;
+    }
 
     /* Modal */
     .modal-backdrop{
@@ -577,6 +650,72 @@
           </p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ===========================
+       PROVAS SOCIAIS (NOVA SEÇÃO)
+       =========================== -->
+  <section id="provas" class="py-16">
+    <div class="container-safe">
+      <div class="max-w-3xl mx-auto text-center mb-10">
+        <span class="inline-block px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-3"
+              style="background: rgba(120,199,199,.18); color: var(--acs-teal);">
+          Prova real
+        </span>
+
+        <h2 class="text-2xl md:text-3xl font-black mb-3 tracking-tighter" style="color: var(--acs-ink);">
+          Quem já pegou na mão, entende.
+        </h2>
+
+        <p class="text-sm md:text-base" style="color: var(--acs-muted);">
+          Sem print gigante. Sem poluir. Só o registro de quem já colocou o kit na rotina.
+        </p>
+      </div>
+
+      <div class="proofs-track" aria-label="Carrossel de provas sociais (arraste para o lado)">
+        <!-- CARD 01 (ATUAL) -->
+        <article class="proof-card">
+          <div class="proof-head">
+            <span class="proof-tag">WhatsApp</span>
+            <span class="proof-badge">KIT EM MÃOS</span>
+          </div>
+
+          <div class="proof-img img-click"
+               data-modal-src="assets/prova-kit-01.jpg"
+               data-modal-title="Prova real — Kit em mãos">
+            <img src="assets/prova-kit-01.jpg" alt="Prova social: kit em mãos (WhatsApp)" />
+          </div>
+
+          <div class="proof-foot">
+            <p><b style="color:var(--acs-ink);">Uso real.</b> Ferramenta impressa. Pronta pra entrar na prancheta.</p>
+          </div>
+        </article>
+
+        <!-- CARD FUTURO (MODELO) — deixei pronto, mas desativado (não aparece) -->
+        <!--
+        <article class="proof-card">
+          <div class="proof-head">
+            <span class="proof-tag">WhatsApp</span>
+            <span class="proof-badge">RESULTADO</span>
+          </div>
+
+          <div class="proof-img img-click"
+               data-modal-src="assets/prova-kit-02.jpg"
+               data-modal-title="Prova real — Depoimento">
+            <img src="assets/prova-kit-02.jpg" alt="Prova social: depoimento (WhatsApp)" />
+          </div>
+
+          <div class="proof-foot">
+            <p>Texto curto aqui.</p>
+          </div>
+        </article>
+        -->
+      </div>
+
+      <p class="text-center text-[11px] mt-4 font-semibold" style="color:#94a3b8;">
+        Arraste para o lado. (Este bloco aceita várias provas no futuro.)
+      </p>
     </div>
   </section>
 
