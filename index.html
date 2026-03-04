@@ -57,7 +57,7 @@
       color: var(--acs-ink);
       overflow-x: hidden;
       scroll-behavior: smooth;
-      padding-bottom: calc(110px + env(safe-area-inset-bottom));
+      padding-bottom: calc(84px + env(safe-area-inset-bottom));
     }
 
     /* Scroll offset para âncoras (menu sticky) */
@@ -188,7 +188,7 @@
        =========================== */
     .cta-main{
       position: relative;
-      overflow: hidden; /* shine não vaza */
+      overflow: hidden;
       transform: translateZ(0);
       transition: transform .30s ease-in-out, background-color .30s ease-in-out, outline-color .30s ease-in-out;
       outline: 2px solid rgba(102,182,182,.40);
@@ -221,50 +221,6 @@
     }
     .cta-main:active{
       transform: scale(0.95);
-    }
-
-    /* ===========================
-       BOTÃO FLUTUANTE
-       =========================== */
-    .float-btn{
-      position: fixed;
-      bottom: calc(16px + env(safe-area-inset-bottom));
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 999;
-      background-color: var(--acs-teal);
-      color: #ffffff;
-      padding: 12px 18px;
-      border-radius: 999px;
-      font-weight: 900;
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      width: min(220px, calc(100% - 32px));
-      max-width: 220px;
-      box-shadow: none;
-      border: 2px solid #ffffff;
-      outline: 2px solid rgba(102,182,182,.55);
-      transition: transform .15s ease, background-color .15s ease, opacity .25s ease, visibility .25s ease;
-    }
-    .float-btn:hover{
-      background-color: var(--acs-teal-dark);
-      transform: translateX(-50%) scale(1.02);
-    }
-    .float-btn.is-hidden{
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-    .float-price{
-      background: #ffffff;
-      color: var(--acs-ink);
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      font-weight: 900;
     }
 
     /* CTA secundário (combo) — sem sombra */
@@ -310,6 +266,101 @@
     .reveal.is-visible{
       opacity: 1;
       transform: translateY(0);
+    }
+
+    /* ===========================
+       BOTÃO FLUTUANTE (REMODELADO)
+       Menor, limpo, “badge” de preço
+       =========================== */
+    .float-btn{
+      position: fixed;
+      right: 16px;
+      bottom: calc(16px + env(safe-area-inset-bottom));
+      z-index: 999;
+
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+
+      background: rgba(255,255,255,.92);
+      color: var(--acs-ink);
+
+      border: 1px solid rgba(2,6,23,.10);
+      outline: 2px solid rgba(120,199,199,.35);
+
+      border-radius: 999px;
+      padding: 10px 12px;
+
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+
+      transition: transform .20s ease, opacity .25s ease, visibility .25s ease, background-color .20s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .float-btn:hover{
+      transform: scale(1.03);
+      background: rgba(255,255,255,.98);
+    }
+    .float-btn:active{ transform: scale(0.97); }
+
+    .float-btn.is-hidden{
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .float-ico{
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: rgba(120,199,199,.14);
+      border: 1px solid rgba(120,199,199,.35);
+      flex: 0 0 auto;
+    }
+    .float-ico svg{
+      width: 18px;
+      height: 18px;
+      color: var(--acs-ink);
+    }
+
+    .float-label{
+      display: grid;
+      gap: 2px;
+      line-height: 1.1;
+    }
+    .float-label span{
+      font-size: 11px;
+      letter-spacing: .10em;
+    }
+
+    .float-price{
+      background: rgba(120,199,199,.18);
+      border: 1px solid rgba(120,199,199,.35);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: .02em;
+      text-transform: none;
+      white-space: nowrap;
+    }
+
+    /* Mobile: centraliza e deixa mais “safe” */
+    @media (max-width: 520px){
+      .float-btn{
+        right: 50%;
+        transform: translateX(50%);
+      }
+      .float-btn:hover{
+        transform: translateX(50%) scale(1.03);
+      }
+      .float-btn:active{
+        transform: translateX(50%) scale(0.97);
+      }
     }
 
     /* ===========================
@@ -526,7 +577,7 @@
     }
 
     /* ===========================
-       Modal imagens (já existia)
+       Modal imagens
        =========================== */
     .modal-backdrop{
       position: fixed;
@@ -682,7 +733,7 @@
     .cookie-btn:hover{ background: rgba(120,199,199,.18); }
 
     /* ===========================
-       Exit intent modal (reusa modal-base)
+       Exit intent modal (aparece só quando subir saindo do offer)
        =========================== */
     #exitModal{
       position: fixed;
@@ -774,6 +825,7 @@
       letter-spacing: .10em;
       text-transform: uppercase;
       font-size: 12px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -789,13 +841,22 @@
     </div>
   </div>
 
-  <!-- CTA flutuante mantém link e UTM original (checkout normal) -->
+  <!-- CTA flutuante (mesmo link/UTM) -->
   <a id="floatCta"
      href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
      target="_blank"
      class="float-btn"
      aria-label="Comprar agora">
-    <span>GARANTIR MEU KIT</span>
+    <span class="float-ico" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M7 12h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <path d="M13 8l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <span class="float-label">
+      <span>Garantir</span>
+      <span style="color: var(--acs-muted); font-size:10px; letter-spacing:.14em;">MEU KIT</span>
+    </span>
     <span class="float-price">R$ 19,90</span>
   </a>
 
@@ -860,9 +921,10 @@
           </p>
         </div>
 
-        <!-- CTA principal (checkout normal) + CTA secundário (checkout com bump) + checklist -->
+        <!-- CTA principal + secundário + checklist -->
         <div class="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
-          <a href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
+          <a id="heroPrimaryCta"
+             href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
              target="_blank"
              class="bg-teal-acs text-white font-black px-8 py-4 rounded-xl text-center border cta-main"
              style="border-color: rgba(15,23,42,.08);">
@@ -1112,7 +1174,7 @@
     </div>
   </section>
 
-  <!-- FAQ (agora acordeão) -->
+  <!-- FAQ (acordeão) -->
   <section class="py-16 bg-white reveal" id="faq">
     <div class="container-safe max-w-2xl mx-auto">
       <h2 class="text-center font-black mb-10 uppercase text-xs tracking-[0.3em]" style="color: #94a3b8;">
@@ -1213,7 +1275,7 @@
           O kit completo (Fichas + Calendários + Manual) pronto para imprimir.
         </p>
 
-        <!-- Scarcity bar (visual) -->
+        <!-- Scarcity bar -->
         <div class="scarcity mb-8" aria-label="Barra de lote promocional">
           <div class="scarcity-top">
             <span>Lote promocional</span>
@@ -1222,7 +1284,7 @@
           <div class="scarcity-bar" role="progressbar" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100">
             <div class="scarcity-fill"></div>
           </div>
-          <div class="scarcity-foot">Use com moderação: este indicador é uma referência visual (não é contador em tempo real).</div>
+          <div class="scarcity-foot">Referência visual (não é contador em tempo real).</div>
         </div>
 
         <div class="mb-10">
@@ -1256,7 +1318,6 @@
         <div class="trust" aria-label="Selos de confiança">
           <div class="trust-item">
             <div class="trust-ico" aria-hidden="true">
-              <!-- cadeado -->
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M7.5 11V8.5a4.5 4.5 0 0 1 9 0V11" stroke="currentColor" stroke-width="2" />
                 <path d="M6 11h12v10H6V11Z" stroke="currentColor" stroke-width="2" />
@@ -1267,7 +1328,6 @@
 
           <div class="trust-item">
             <div class="trust-ico" aria-hidden="true">
-              <!-- raio -->
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M13 2 3 14h7l-1 8 12-14h-7l-1-6Z" stroke="currentColor" stroke-width="2" />
               </svg>
@@ -1277,7 +1337,6 @@
 
           <div class="trust-item">
             <div class="trust-ico" aria-hidden="true">
-              <!-- arquivo -->
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-6Z" stroke="currentColor" stroke-width="2" />
                 <path d="M14 2v6h6" stroke="currentColor" stroke-width="2" />
@@ -1336,12 +1395,12 @@
   <div id="exitModal" role="dialog" aria-modal="true" aria-label="Antes de sair">
     <div class="exit-card">
       <div class="exit-top">
-        <div class="exit-title">Última chance</div>
+        <div class="exit-title">Recuperar visita</div>
         <button class="exit-x" id="exitClose" type="button" aria-label="Fechar">✕</button>
       </div>
       <div class="exit-body">
         <h3>Espera.</h3>
-        <p>Não vai pro campo desprotegido. Pelo menos pega o <b>Checklist Grátis</b> antes de sair.</p>
+        <p>Se você não for comprar agora, pelo menos pega o <b>Checklist Grátis</b>. É a blindagem mínima antes do campo.</p>
         <div class="exit-actions">
           <a class="exit-primary" href="#checklist">Quero o checklist</a>
           <button class="exit-secondary" id="exitDismiss" type="button">Agora não</button>
@@ -1464,9 +1523,7 @@
       });
 
       closeBtn.addEventListener('click', closeModal);
-      modal.addEventListener('click', (e) => {
-        if(e.target === modal) closeModal();
-      });
+      modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
 
       window.addEventListener('keydown', (e) => {
         if(e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
@@ -1484,7 +1541,6 @@
         btn.addEventListener('click', () => {
           const isOpen = item.classList.contains('is-open');
 
-          // Fecha outros (comportamento mais limpo)
           items.forEach(other => {
             if(other === item) return;
             other.classList.remove('is-open');
@@ -1511,7 +1567,6 @@
         });
       });
 
-      // Recalcula altura se trocar orientação/tamanho
       window.addEventListener('resize', () => {
         document.querySelectorAll('.faq-item.is-open .faq-panel').forEach(panel => {
           panel.style.maxHeight = panel.scrollHeight + 'px';
@@ -1519,7 +1574,7 @@
       });
     }
 
-    /* Scroll reveal (IntersectionObserver) */
+    /* Scroll reveal */
     function setupScrollReveal(){
       const els = document.querySelectorAll('.reveal');
       if(!('IntersectionObserver' in window)){
@@ -1542,11 +1597,9 @@
       const ctas = document.querySelectorAll('.cta-main');
       if(!ctas.length) return;
 
-      // dispara logo no início e depois a cada 5s
       const pulse = () => {
         ctas.forEach(btn => {
           btn.classList.remove('shine');
-          // reflow para reiniciar animação
           void btn.offsetWidth;
           btn.classList.add('shine');
         });
@@ -1555,7 +1608,7 @@
       setInterval(pulse, 5000);
     }
 
-    /* Botão flutuante inteligente: some quando oferta final está visível */
+    /* Botão flutuante inteligente: some quando CTA final está visível */
     function setupSmartFloat(){
       const floatBtn = document.getElementById('floatCta');
       const offerCta = document.getElementById('offerPrimaryCta');
@@ -1565,12 +1618,11 @@
 
       const io = new IntersectionObserver((entries) => {
         entries.forEach(ent => {
-          if(ent.target === offerCta){
-            if(ent.isIntersecting){
-              floatBtn.classList.add('is-hidden');
-            }else{
-              floatBtn.classList.remove('is-hidden');
-            }
+          if(ent.target !== offerCta) return;
+          if(ent.isIntersecting){
+            floatBtn.classList.add('is-hidden');
+          }else{
+            floatBtn.classList.remove('is-hidden');
           }
         });
       }, { threshold: 0.35 });
@@ -1586,64 +1638,12 @@
 
       const key = 'acs_cookie_ok_v1';
       const has = localStorage.getItem(key);
-      if(!has){
-        bar.classList.add('show');
-      }
+      if(!has) bar.classList.add('show');
+
       ok.addEventListener('click', () => {
         localStorage.setItem(key, '1');
         bar.classList.remove('show');
       });
-    }
-
-    /* Exit-intent (desktop) + fallback mobile (tempo/scroll) */
-    function setupExitIntent(){
-      const modal = document.getElementById('exitModal');
-      const close = document.getElementById('exitClose');
-      const dismiss = document.getElementById('exitDismiss');
-      if(!modal || !close || !dismiss) return;
-
-      const key = 'acs_exit_intent_v1';
-      if(localStorage.getItem(key)) return;
-
-      const open = () => {
-        if(localStorage.getItem(key)) return;
-        modal.classList.add('show');
-        localStorage.setItem(key, '1');
-      };
-      const shut = () => {
-        modal.classList.remove('show');
-      };
-
-      close.addEventListener('click', shut);
-      dismiss.addEventListener('click', shut);
-      modal.addEventListener('click', (e) => {
-        if(e.target === modal) shut();
-      });
-
-      // Desktop: mouse sai pelo topo
-      let armed = true;
-      document.addEventListener('mouseleave', (e) => {
-        if(!armed) return;
-        if(e.clientY <= 0){
-          armed = false;
-          open();
-        }
-      });
-
-      // Mobile fallback: 45s OU 60% scroll
-      setTimeout(() => {
-        if(!localStorage.getItem(key)) open();
-      }, 45000);
-
-      const onScroll = () => {
-        const sc = window.scrollY || document.documentElement.scrollTop;
-        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        if(h > 0 && (sc / h) >= 0.60){
-          window.removeEventListener('scroll', onScroll);
-          if(!localStorage.getItem(key)) open();
-        }
-      };
-      window.addEventListener('scroll', onScroll, { passive: true });
     }
 
     /* Prova social toast */
@@ -1668,14 +1668,13 @@
         setTimeout(() => toast.classList.remove('show'), 5200);
       };
 
-      // primeira após 12s, depois a cada 20s
       setTimeout(() => {
         show();
         setInterval(show, 20000);
       }, 12000);
     }
 
-    /* Preloader com tempo mínimo + fallback */
+    /* Preloader */
     function setupPreloader(){
       const pre = document.getElementById('preloader');
       if(!pre) return;
@@ -1689,13 +1688,89 @@
         setTimeout(() => pre.classList.add('hidden'), wait);
       };
 
-      // normal
       window.addEventListener('load', hide);
 
-      // fallback se algum recurso travar
       setTimeout(() => {
         if(!pre.classList.contains('hidden')) pre.classList.add('hidden');
       }, 3500);
+    }
+
+    /* ✅ EXIT “RECUPERAR VENDA” (CORRIGIDO)
+       Regra: só pode disparar se:
+       1) o usuário já viu a oferta (#offer) de verdade (armado)
+       2) ele estava com a oferta visível e depois saiu dela SUBINDO
+       3) ele não clicou no CTA de compra
+    */
+    function setupExitIntent(){
+      const modal = document.getElementById('exitModal');
+      const close = document.getElementById('exitClose');
+      const dismiss = document.getElementById('exitDismiss');
+      const offerSection = document.getElementById('offer');
+      const offerPrimaryCta = document.getElementById('offerPrimaryCta');
+      const heroPrimaryCta = document.getElementById('heroPrimaryCta');
+      const floatCta = document.getElementById('floatCta');
+
+      if(!modal || !close || !dismiss || !offerSection) return;
+
+      const key = 'acs_recover_offer_v1';
+      if(localStorage.getItem(key)) return;
+
+      const open = () => {
+        if(localStorage.getItem(key)) return;
+        modal.classList.add('show');
+        localStorage.setItem(key, '1');
+      };
+      const shut = () => modal.classList.remove('show');
+
+      close.addEventListener('click', shut);
+      dismiss.addEventListener('click', shut);
+      modal.addEventListener('click', (e) => { if(e.target === modal) shut(); });
+
+      // Se clicar em qualquer CTA de compra, não mostra recuperação
+      const markPurchasedIntent = () => localStorage.setItem(key, '1');
+      [offerPrimaryCta, heroPrimaryCta, floatCta].forEach(el => {
+        if(el) el.addEventListener('click', markPurchasedIntent, { passive: true });
+      });
+
+      let armed = false;          // já viu a seção offer (pode armar)
+      let offerVisible = false;   // offer visível agora
+      let wasOfferVisible = false;// offer estava visível no tick anterior
+      let lastY = window.scrollY;
+
+      // Observa visibilidade real do offer
+      if('IntersectionObserver' in window){
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(ent => {
+            if(ent.target !== offerSection) return;
+            offerVisible = ent.isIntersecting;
+
+            if(offerVisible){
+              armed = true; // só arma ao entrar no offer
+            }
+          });
+        }, { threshold: 0.40 });
+        io.observe(offerSection);
+      } else {
+        // fallback: arma quando passa do topo do offer
+        window.addEventListener('scroll', () => {
+          if(window.scrollY >= offerSection.offsetTop - 120) armed = true;
+        }, { passive: true });
+      }
+
+      // Dispara quando: estava visível, saiu, e o scroll atual está SUBINDO
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        const goingUp = y < lastY;
+
+        if(armed && goingUp && wasOfferVisible && !offerVisible){
+          // garantia extra: ele realmente saiu pra cima do offer (não pra baixo)
+          // Se ele saiu pra baixo, y tende a aumentar e não passa aqui
+          open();
+        }
+
+        wasOfferVisible = offerVisible;
+        lastY = y;
+      }, { passive: true });
     }
 
     window.addEventListener('load', () => {
@@ -1706,11 +1781,10 @@
       setupShine();
       setupSmartFloat();
       setupCookies();
-      setupExitIntent();
       setupSocialToast();
+      setupExitIntent();
     });
 
-    // preloader precisa armar antes do load também
     setupPreloader();
   </script>
 </body>
