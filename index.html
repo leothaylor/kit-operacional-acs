@@ -5,6 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Kit Operacional ACS — Gestão Cognitiva de Campo</title>
 
+  <!-- SEO básico -->
+  <meta name="description" content="Kit Operacional ACS pronto pra imprimir: fichas + calendários + manual. Tire o peso de carregar o sistema na cabeça e recupere o olhar no território." />
+
+  <!-- Open Graph / WhatsApp -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Kit Operacional ACS — Gestão Cognitiva de Campo" />
+  <meta property="og:description" content="Tire o peso de carregar o sistema na cabeça. Kit pronto pra imprimir: fichas + calendários + manual." />
+  <meta property="og:image" content="assets/hero.jpg" />
+  <meta property="og:image:alt" content="ACS usando o kit com paciente" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kit Operacional ACS — Gestão Cognitiva de Campo" />
+  <meta name="twitter:description" content="Kit pronto pra imprimir: fichas + calendários + manual. Segurança técnica e paz mental no território." />
+  <meta name="twitter:image" content="assets/hero.jpg" />
+
+  <!-- Favicon / Webclip -->
+  <link rel="icon" href="assets/logo-ig.png" />
+  <link rel="apple-touch-icon" href="assets/logo-ig.png" />
+  <meta name="theme-color" content="#78C7C7" />
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
@@ -26,6 +47,8 @@
       --acs-ink: #0f172a;
       --acs-muted: #475569;
       --acs-line: #e2e8f0;
+      --acs-danger: #fb7185;
+      --acs-warning: #f59e0b;
     }
 
     body{
@@ -35,6 +58,11 @@
       overflow-x: hidden;
       scroll-behavior: smooth;
       padding-bottom: calc(110px + env(safe-area-inset-bottom));
+    }
+
+    /* Scroll offset para âncoras (menu sticky) */
+    section[id], header[id], div[id]{
+      scroll-margin-top: 92px;
     }
 
     .container-safe{
@@ -92,7 +120,112 @@
       margin: 0 auto;
     }
 
-    /* BOTÃO FLUTUANTE (mais curto) */
+    a, button{ -webkit-tap-highlight-color: transparent; }
+
+    /* ===========================
+       PRELOADER (logo real)
+       =========================== */
+    #preloader{
+      position: fixed;
+      inset: 0;
+      background: var(--acs-bg);
+      display: grid;
+      place-items: center;
+      z-index: 9999;
+      transition: opacity .45s ease, visibility .45s ease;
+    }
+    #preloader.hidden{
+      opacity: 0;
+      visibility: hidden;
+    }
+    .preloader-card{
+      display: grid;
+      place-items: center;
+      gap: 10px;
+      padding: 18px 22px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.65);
+      border: 1px solid rgba(2,6,23,.08);
+    }
+    .preloader-logo{
+      width: 64px;
+      height: 64px;
+      border-radius: 999px;
+      border: 2px solid rgba(120,199,199,.55);
+      outline: 2px solid rgba(102,182,182,.22);
+      background: #fff;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+    .preloader-logo img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.02);
+      animation: prePulse 1.1s ease-in-out infinite;
+    }
+    .preloader-text{
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--acs-muted);
+    }
+    @keyframes prePulse{
+      0%{ opacity: .85; transform: scale(1.02); }
+      50%{ opacity: 1; transform: scale(1.06); }
+      100%{ opacity: .85; transform: scale(1.02); }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+    }
+
+    /* ===========================
+       CTA PRINCIPAL — Shine + micro-interações (sem sombra)
+       =========================== */
+    .cta-main{
+      position: relative;
+      overflow: hidden; /* shine não vaza */
+      transform: translateZ(0);
+      transition: transform .30s ease-in-out, background-color .30s ease-in-out, outline-color .30s ease-in-out;
+      outline: 2px solid rgba(102,182,182,.40);
+      outline-offset: 0px;
+    }
+    .cta-main::after{
+      content:"";
+      position:absolute;
+      top:-40%;
+      left:-60%;
+      width: 40%;
+      height: 180%;
+      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.55), rgba(255,255,255,0));
+      transform: skewX(-18deg);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .cta-main.shine::after{
+      animation: shine 1.05s ease-in-out;
+    }
+    @keyframes shine{
+      0%{ left:-60%; opacity: 0; }
+      15%{ opacity: .9; }
+      100%{ left: 120%; opacity: 0; }
+    }
+    .cta-main:hover{
+      transform: scale(1.05);
+      background-color: var(--acs-teal-dark);
+      outline-color: rgba(102,182,182,.65);
+    }
+    .cta-main:active{
+      transform: scale(0.95);
+    }
+
+    /* ===========================
+       BOTÃO FLUTUANTE
+       =========================== */
     .float-btn{
       position: fixed;
       bottom: calc(16px + env(safe-area-inset-bottom));
@@ -114,11 +247,16 @@
       box-shadow: none;
       border: 2px solid #ffffff;
       outline: 2px solid rgba(102,182,182,.55);
-      transition: transform .15s ease, background-color .15s ease;
+      transition: transform .15s ease, background-color .15s ease, opacity .25s ease, visibility .25s ease;
     }
     .float-btn:hover{
       background-color: var(--acs-teal-dark);
       transform: translateX(-50%) scale(1.02);
+    }
+    .float-btn.is-hidden{
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
     }
     .float-price{
       background: #ffffff;
@@ -129,15 +267,19 @@
       font-weight: 900;
     }
 
-    /* CTA secundário (combo) — sem sombra / mantendo padrão limpo */
+    /* CTA secundário (combo) — sem sombra */
     .btn-secondary{
       background: rgba(120,199,199,.10);
       color: var(--acs-ink);
       border: 1px solid rgba(120,199,199,.55);
+      transition: transform .30s ease-in-out, background-color .30s ease-in-out;
     }
     .btn-secondary:hover{
       background: rgba(120,199,199,.18);
+      transform: scale(1.02);
     }
+    .btn-secondary:active{ transform: scale(0.98); }
+
     .btn-secondary-pill{
       display:inline-flex;
       align-items:center;
@@ -154,10 +296,21 @@
     }
 
     .active-card-green{ border: 2px solid var(--acs-teal); background-color: rgba(120,199,199,0.18); }
-    .active-card-red{ border: 2px solid #fb7185; background-color: rgba(251,113,133,0.10); }
+    .active-card-red{ border: 2px solid var(--acs-danger); background-color: rgba(251,113,133,0.10); }
     .inactive-card{ opacity: 0.55; filter: grayscale(1); cursor: pointer; border: 2px solid transparent; }
 
-    a, button{ -webkit-tap-highlight-color: transparent; }
+    /* ===========================
+       SCROLL REVEAL
+       =========================== */
+    .reveal{
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .reveal.is-visible{
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     /* ===========================
        PROVAS SOCIAIS (CARROSSEL)
@@ -232,7 +385,149 @@
       line-height: 1.35;
     }
 
-    /* Modal */
+    /* ===========================
+       FAQ Acordeão
+       =========================== */
+    .faq-item{
+      border-bottom: 1px solid var(--acs-line);
+      padding-bottom: 12px;
+    }
+    .faq-btn{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      text-align: left;
+      font-weight: 900;
+      font-size: 14px;
+      color: var(--acs-ink);
+      padding: 12px 0;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+    .faq-icon{
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.80);
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      transition: transform .25s ease;
+      font-weight: 900;
+      color: var(--acs-muted);
+    }
+    .faq-item.is-open .faq-icon{
+      transform: rotate(45deg);
+    }
+    .faq-panel{
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease;
+    }
+    .faq-panel p{
+      margin: 0;
+      color: var(--acs-muted);
+      font-size: 14px;
+      line-height: 1.55;
+      padding-bottom: 10px;
+    }
+
+    /* ===========================
+       Scarcity bar
+       =========================== */
+    .scarcity{
+      border: 1px solid rgba(245,158,11,.35);
+      background: rgba(245,158,11,.08);
+      border-radius: 16px;
+      padding: 12px 14px;
+      text-align: left;
+    }
+    .scarcity-top{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .scarcity-top span{
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      color: #b45309;
+      white-space: nowrap;
+    }
+    .scarcity-top b{
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--acs-ink);
+      white-space: nowrap;
+    }
+    .scarcity-bar{
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(245,158,11,.18);
+      overflow: hidden;
+      border: 1px solid rgba(245,158,11,.25);
+    }
+    .scarcity-fill{
+      height: 100%;
+      width: 87%;
+      background: rgba(245,158,11,.65);
+      border-radius: 999px;
+    }
+    .scarcity-foot{
+      margin-top: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--acs-muted);
+    }
+
+    /* ===========================
+       Trust badges
+       =========================== */
+    .trust{
+      margin-top: 14px;
+      display: grid;
+      gap: 8px;
+    }
+    .trust-item{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(2,6,23,.08);
+      background: rgba(255,255,255,.80);
+      text-align: left;
+    }
+    .trust-ico{
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(120,199,199,.45);
+      background: rgba(120,199,199,.12);
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+    }
+    .trust-txt{
+      font-size: 12px;
+      color: var(--acs-muted);
+      line-height: 1.25;
+    }
+    .trust-txt b{
+      color: var(--acs-ink);
+    }
+
+    /* ===========================
+       Modal imagens (já existia)
+       =========================== */
     .modal-backdrop{
       position: fixed;
       inset: 0;
@@ -295,10 +590,205 @@
       border-radius: 14px;
       background: #fff;
     }
+
+    /* ===========================
+       Toast prova social
+       =========================== */
+    #socialToast{
+      position: fixed;
+      left: 16px;
+      bottom: calc(16px + env(safe-area-inset-bottom));
+      z-index: 1500;
+      width: min(360px, calc(100% - 32px));
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: opacity .25s ease, transform .25s ease, visibility .25s ease;
+      pointer-events: none;
+    }
+    #socialToast.show{
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .toast-card{
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(2,6,23,.10);
+      border-radius: 18px;
+      padding: 12px 14px;
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      backdrop-filter: blur(8px);
+    }
+    .toast-dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(120,199,199,.95);
+      margin-top: 5px;
+      flex: 0 0 auto;
+    }
+    .toast-text{
+      font-size: 12px;
+      line-height: 1.25;
+      color: var(--acs-muted);
+    }
+    .toast-text b{ color: var(--acs-ink); }
+
+    /* ===========================
+       Cookies LGPD (minimal)
+       =========================== */
+    #cookieBar{
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1600;
+      padding: 12px 14px calc(12px + env(safe-area-inset-bottom));
+      background: rgba(255,255,255,.92);
+      border-top: 1px solid rgba(2,6,23,.08);
+      backdrop-filter: blur(10px);
+      display: none;
+    }
+    #cookieBar.show{ display: block; }
+    .cookie-inner{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .cookie-text{
+      font-size: 12px;
+      color: var(--acs-muted);
+      line-height: 1.25;
+    }
+    .cookie-btn{
+      background: rgba(120,199,199,.12);
+      border: 1px solid rgba(120,199,199,.45);
+      color: var(--acs-ink);
+      font-weight: 900;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .cookie-btn:hover{ background: rgba(120,199,199,.18); }
+
+    /* ===========================
+       Exit intent modal (reusa modal-base)
+       =========================== */
+    #exitModal{
+      position: fixed;
+      inset: 0;
+      z-index: 2100;
+      background: rgba(2,6,23,.70);
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+    #exitModal.show{ display: flex; }
+    .exit-card{
+      width: min(520px, 96vw);
+      border-radius: 24px;
+      background: rgba(255,255,255,.96);
+      border: 1px solid rgba(255,255,255,.18);
+      overflow: hidden;
+    }
+    .exit-top{
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(2,6,23,.08);
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .exit-title{
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--acs-muted);
+    }
+    .exit-x{
+      border-radius: 999px;
+      padding: 10px 12px;
+      border: 1px solid rgba(2,6,23,.10);
+      background: rgba(2,6,23,.05);
+      font-weight: 900;
+      cursor: pointer;
+    }
+    .exit-body{
+      padding: 16px;
+    }
+    .exit-body h3{
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--acs-ink);
+      margin: 0 0 8px 0;
+    }
+    .exit-body p{
+      margin: 0 0 14px 0;
+      color: var(--acs-muted);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .exit-actions{
+      display:grid;
+      gap: 10px;
+    }
+    .exit-primary{
+      display:block;
+      width: 100%;
+      text-align:center;
+      background: var(--acs-teal);
+      color: #fff;
+      font-weight: 900;
+      border-radius: 18px;
+      padding: 14px 16px;
+      border: 1px solid rgba(2,6,23,.08);
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      font-size: 12px;
+      transition: transform .25s ease, background-color .25s ease;
+    }
+    .exit-primary:hover{ background: var(--acs-teal-dark); transform: scale(1.02); }
+    .exit-secondary{
+      display:block;
+      width: 100%;
+      text-align:center;
+      background: rgba(120,199,199,.10);
+      color: var(--acs-ink);
+      font-weight: 900;
+      border-radius: 18px;
+      padding: 14px 16px;
+      border: 1px solid rgba(120,199,199,.45);
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
   </style>
 </head>
 
 <body>
+  <!-- PRELOADER -->
+  <div id="preloader" aria-hidden="true">
+    <div class="preloader-card">
+      <div class="preloader-logo" aria-hidden="true">
+        <img src="assets/logo-ig.png" alt="" />
+      </div>
+      <div class="preloader-text">Carregando…</div>
+    </div>
+  </div>
+
   <!-- CTA flutuante mantém link e UTM original (checkout normal) -->
   <a id="floatCta"
      href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
@@ -331,7 +821,7 @@
   </nav>
 
   <!-- HERO -->
-  <header class="py-12 md:py-20">
+  <header class="py-12 md:py-20 reveal" id="topo">
     <div class="container-safe grid md:grid-cols-2 gap-12 items-center">
       <div class="text-center md:text-left">
         <span class="inline-block px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-4"
@@ -374,14 +864,14 @@
         <div class="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
           <a href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
              target="_blank"
-             class="bg-teal-acs text-white font-black px-8 py-4 rounded-xl transition-all text-center border"
+             class="bg-teal-acs text-white font-black px-8 py-4 rounded-xl text-center border cta-main"
              style="border-color: rgba(15,23,42,.08);">
             GARANTIR MEU KIT • R$ 19,90
           </a>
 
           <a href="https://pay.hotmart.com/I101458561P?checkoutMode=10"
              target="_blank"
-             class="btn-secondary font-black px-8 py-4 rounded-xl transition-all text-center">
+             class="btn-secondary font-black px-8 py-4 rounded-xl text-center">
             BLINDAGEM COMPLETA (KIT + APS 360)
           </a>
 
@@ -405,7 +895,7 @@
         </div>
       </div>
 
-      <div class="img-wrap h-64 md:h-96 img-click" data-modal-src="assets/hero.jpg" data-modal-title="Foto principal">
+      <div class="img-wrap h-64 md:h-96 img-click reveal" data-modal-src="assets/hero.jpg" data-modal-title="Foto principal">
         <img src="assets/hero.jpg" alt="ACS usando o kit com paciente" />
         <div class="img-overlay" aria-hidden="true">
           <span>clique para ampliar</span>
@@ -414,7 +904,7 @@
     </div>
   </header>
 
-  <section class="py-12 bg-white">
+  <section class="py-12 bg-white reveal">
     <div class="container-safe">
       <div class="max-w-3xl mx-auto text-center mb-12">
         <h2 class="text-xl md:text-2xl font-black mb-2 uppercase tracking-tighter" style="color: var(--acs-ink);">
@@ -426,14 +916,14 @@
       </div>
 
       <div class="grid md:grid-cols-2 gap-6">
-        <div class="p-6 rounded-2xl bg-slate-50 border-l-4" style="border-left-color:#fb7185;">
-          <p class="font-black text-xs uppercase mb-2" style="color:#fb7185;">Sem o kit:</p>
+        <div class="p-6 rounded-2xl bg-slate-50 border-l-4 reveal" style="border-left-color: var(--acs-danger);">
+          <p class="font-black text-xs uppercase mb-2" style="color: var(--acs-danger);">Sem o kit:</p>
           <p class="text-sm italic" style="color: var(--acs-muted);">
             "Você conversa carregando uma lista invisível na cabeça. A atenção fica fragmentada entre ouvir e não esquecer de perguntar."
           </p>
         </div>
 
-        <div class="p-6 rounded-2xl border-l-4" style="border-left-color: var(--acs-teal); background: rgba(120,199,199,.10);">
+        <div class="p-6 rounded-2xl border-l-4 reveal" style="border-left-color: var(--acs-teal); background: rgba(120,199,199,.10);">
           <p class="text-teal-acs font-black text-xs uppercase mb-2">Com o kit:</p>
           <p class="text-sm" style="color: var(--acs-muted);">
             "Você encerra o bloco obrigatório no papel e troca de modo: observação, vínculo e cuidado real."
@@ -443,7 +933,7 @@
     </div>
   </section>
 
-  <section id="checklist" class="py-16">
+  <section id="checklist" class="py-16 reveal">
     <div class="container-safe">
       <div class="max-w-3xl mx-auto text-center mb-10">
         <h2 class="text-2xl md:text-3xl font-black mb-3 tracking-tighter" style="color: var(--acs-ink);">
@@ -455,7 +945,7 @@
       </div>
 
       <div class="grid md:grid-cols-2 gap-8 items-start">
-        <div class="bg-white rounded-[2rem] border p-7 md:p-8"
+        <div class="bg-white rounded-[2rem] border p-7 md:p-8 reveal"
              style="border-color: rgba(120,199,199,.45);">
           <p class="text-xs font-black uppercase tracking-widest mb-3" style="color: var(--acs-muted);">
             O que você recebe (PDF)
@@ -478,7 +968,7 @@
           </div>
         </div>
 
-        <div class="bg-white rounded-[2rem] border p-7 md:p-8"
+        <div class="bg-white rounded-[2rem] border p-7 md:p-8 reveal"
              style="border-color: rgba(120,199,199,.45);">
           <p class="text-xs font-black uppercase tracking-widest mb-4" style="color: var(--acs-muted);">
             Receber por e-mail
@@ -494,12 +984,12 @@
     </div>
   </section>
 
-  <section id="arsenal" class="py-16">
+  <section id="arsenal" class="py-16 reveal">
     <div class="container-safe">
       <h2 class="text-2xl font-black text-center mb-12" style="color: var(--acs-ink);">O Arsenal do ACS</h2>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="space-y-4">
+        <div class="space-y-4 reveal">
           <div class="img-wrap h-48 img-click" data-modal-src="assets/fichas.jpg" data-modal-title="Fichas de acompanhamento">
             <img src="assets/fichas.jpg" alt="Leque das fichas de acompanhamento" />
             <div class="img-overlay" aria-hidden="true"><span>clique para ampliar</span></div>
@@ -511,7 +1001,7 @@
           <p class="text-[11px] font-semibold" style="color:#94a3b8;">Dica: clique na imagem para ver legível.</p>
         </div>
 
-        <div class="space-y-4">
+        <div class="space-y-4 reveal">
           <div class="img-wrap h-48 img-click" data-modal-src="assets/calendario-individual.jpg" data-modal-title="Calendário individual">
             <img src="assets/calendario-individual.jpg" alt="Calendário individual do ACS" />
             <div class="img-overlay" aria-hidden="true"><span>clique para ampliar</span></div>
@@ -523,7 +1013,7 @@
           <p class="text-[11px] font-semibold" style="color:#94a3b8;">Dica: clique na imagem para ver legível.</p>
         </div>
 
-        <div class="space-y-4">
+        <div class="space-y-4 reveal">
           <div class="img-wrap h-48 img-click" data-modal-src="assets/calendario-equipe.jpg" data-modal-title="Calendário de equipe">
             <img src="assets/calendario-equipe.jpg" alt="Calendário de equipe do ACS" />
             <div class="img-overlay" aria-hidden="true"><span>clique para ampliar</span></div>
@@ -539,7 +1029,7 @@
   </section>
 
   <!-- BLOCO: apenas 2 links (Kit normal + Kit+Manual) -->
-  <section id="blindagem" class="py-12">
+  <section id="blindagem" class="py-12 reveal">
     <div class="container-safe">
       <div class="max-w-3xl mx-auto text-center">
         <span class="inline-block px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-3"
@@ -559,7 +1049,7 @@
         <div class="flex flex-col sm:flex-row gap-3 justify-center">
           <a href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
              target="_blank"
-             class="inline-block bg-teal-acs text-white font-black px-8 py-4 rounded-2xl uppercase tracking-widest text-sm border"
+             class="inline-block bg-teal-acs text-white font-black px-8 py-4 rounded-2xl uppercase tracking-widest text-sm border cta-main"
              style="border-color: rgba(15,23,42,.08);">
             Garantir só o Kit
           </a>
@@ -578,7 +1068,7 @@
     </div>
   </section>
 
-  <section id="visualizer" class="py-16">
+  <section id="visualizer" class="py-16 reveal">
     <div class="container-safe">
       <h2 class="text-xl md:text-2xl font-black mb-3 text-center uppercase tracking-widest" style="color: var(--acs-ink);">
         Impacto na Qualidade do Olhar
@@ -591,15 +1081,15 @@
       </p>
 
       <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div class="chart-wrapper rounded-2xl border bg-white p-4" style="border-color: var(--acs-line);">
+        <div class="chart-wrapper rounded-2xl border bg-white p-4 reveal" style="border-color: var(--acs-line);">
           <canvas id="performanceChart" aria-label="Gráfico radar comparando Sem Kit e Com Kit" role="img"></canvas>
         </div>
 
         <div class="space-y-4">
           <div id="card-bad" onclick="updateView('bad')"
-               class="p-5 rounded-2xl border-l-4 active-card-red transition-all bg-white border cursor-pointer"
-               style="border-color: var(--acs-line); border-left-color:#fb7185;">
-            <h4 class="font-black text-xs mb-1 uppercase tracking-tighter" style="color:#fb7185;">
+               class="p-5 rounded-2xl border-l-4 active-card-red transition-all bg-white border cursor-pointer reveal"
+               style="border-color: var(--acs-line); border-left-color: var(--acs-danger);">
+            <h4 class="font-black text-xs mb-1 uppercase tracking-tighter" style="color: var(--acs-danger);">
               Cenário: Carga Mental Alta
             </h4>
             <p class="text-[12px]" style="color: var(--acs-muted);">
@@ -608,7 +1098,7 @@
           </div>
 
           <div id="card-good" onclick="updateView('good')"
-               class="p-5 rounded-2xl border-l-4 inactive-card transition-all bg-white border cursor-pointer"
+               class="p-5 rounded-2xl border-l-4 inactive-card transition-all bg-white border cursor-pointer reveal"
                style="border-color: var(--acs-line); border-left-color: var(--acs-teal);">
             <h4 class="font-black text-teal-acs text-xs mb-1 uppercase tracking-tighter">
               Cenário: Gestão Cognitiva
@@ -622,41 +1112,49 @@
     </div>
   </section>
 
-  <section class="py-16 bg-white">
+  <!-- FAQ (agora acordeão) -->
+  <section class="py-16 bg-white reveal" id="faq">
     <div class="container-safe max-w-2xl mx-auto">
       <h2 class="text-center font-black mb-10 uppercase text-xs tracking-[0.3em]" style="color: #94a3b8;">
         Perguntas comuns
       </h2>
 
-      <div class="space-y-6">
-        <div class="border-b pb-4" style="border-color: var(--acs-line);">
-          <h4 class="font-black text-sm mb-2" style="color: var(--acs-ink);">"Isso substitui o tablet?"</h4>
-          <p class="text-sm" style="color: var(--acs-muted);">
-            Não. O kit espelha o sistema para segurança técnica no portão do paciente, onde o digital muitas vezes falha ou trava.
-          </p>
+      <div class="space-y-3">
+        <div class="faq-item">
+          <button class="faq-btn" type="button" aria-expanded="false">
+            <span>"Isso substitui o tablet?"</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-panel" aria-hidden="true">
+            <p>Não. O kit espelha o sistema para segurança técnica no portão do paciente, onde o digital muitas vezes falha ou trava.</p>
+          </div>
         </div>
 
-        <div class="border-b pb-4" style="border-color: var(--acs-line);">
-          <h4 class="font-black text-sm mb-2" style="color: var(--acs-ink);">"Funciona sem internet?"</h4>
-          <p class="text-sm" style="color: var(--acs-muted);">
-            Sim. É papel — você leva, usa e depois registra no sistema quando estiver disponível.
-          </p>
+        <div class="faq-item">
+          <button class="faq-btn" type="button" aria-expanded="false">
+            <span>"Funciona sem internet?"</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-panel" aria-hidden="true">
+            <p>Sim. É papel — você leva, usa e depois registra no sistema quando estiver disponível.</p>
+          </div>
         </div>
 
-        <div class="border-b pb-4" style="border-color: var(--acs-line);">
-          <h4 class="font-black text-sm mb-2" style="color: var(--acs-ink);">"Por que usar papel em 2026?"</h4>
-          <p class="text-sm" style="color: var(--acs-muted);">
-            Pelo <b>encerramento cognitivo</b>. O papel descarrega a obrigação da memória para o mundo físico, liberando o cuidado no presente.
-          </p>
+        <div class="faq-item">
+          <button class="faq-btn" type="button" aria-expanded="false">
+            <span>"Por que usar papel em 2026?"</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-panel" aria-hidden="true">
+            <p>Pelo <b>encerramento cognitivo</b>. O papel descarrega a obrigação da memória para o mundo físico, liberando o cuidado no presente.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===========================
-       PROVAS SOCIAIS (NOVA SEÇÃO)
-       =========================== -->
-  <section id="provas" class="py-16">
+  <!-- PROVAS SOCIAIS -->
+  <section id="provas" class="py-16 reveal">
     <div class="container-safe">
       <div class="max-w-3xl mx-auto text-center mb-10">
         <span class="inline-block px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-3"
@@ -674,7 +1172,6 @@
       </div>
 
       <div class="proofs-track" aria-label="Carrossel de provas sociais (arraste para o lado)">
-        <!-- CARD 01 (ATUAL) -->
         <article class="proof-card">
           <div class="proof-head">
             <span class="proof-tag">WhatsApp</span>
@@ -691,26 +1188,6 @@
             <p><b style="color:var(--acs-ink);">Uso real.</b> Ferramenta impressa. Pronta pra entrar na prancheta.</p>
           </div>
         </article>
-
-        <!-- CARD FUTURO (MODELO) — deixei pronto, mas desativado (não aparece) -->
-        <!--
-        <article class="proof-card">
-          <div class="proof-head">
-            <span class="proof-tag">WhatsApp</span>
-            <span class="proof-badge">RESULTADO</span>
-          </div>
-
-          <div class="proof-img img-click"
-               data-modal-src="assets/prova-kit-02.jpg"
-               data-modal-title="Prova real — Depoimento">
-            <img src="assets/prova-kit-02.jpg" alt="Prova social: depoimento (WhatsApp)" />
-          </div>
-
-          <div class="proof-foot">
-            <p>Texto curto aqui.</p>
-          </div>
-        </article>
-        -->
       </div>
 
       <p class="text-center text-[11px] mt-4 font-semibold" style="color:#94a3b8;">
@@ -719,8 +1196,8 @@
     </div>
   </section>
 
-  <!-- OFERTA FINAL (mantém 2 links, sem duplicação colada antes) -->
-  <section id="offer" class="py-20 text-center">
+  <!-- OFERTA FINAL -->
+  <section id="offer" class="py-20 text-center reveal">
     <div class="container-safe">
       <div class="bg-white p-10 md:p-14 rounded-[2.5rem] border max-w-lg mx-auto overflow-hidden relative"
            style="border-color: rgba(120,199,199,.45);">
@@ -732,9 +1209,21 @@
           Recupere o seu olhar.
         </h2>
 
-        <p class="text-sm mb-8" style="color: var(--acs-muted);">
+        <p class="text-sm mb-6" style="color: var(--acs-muted);">
           O kit completo (Fichas + Calendários + Manual) pronto para imprimir.
         </p>
+
+        <!-- Scarcity bar (visual) -->
+        <div class="scarcity mb-8" aria-label="Barra de lote promocional">
+          <div class="scarcity-top">
+            <span>Lote promocional</span>
+            <b>87% vendido</b>
+          </div>
+          <div class="scarcity-bar" role="progressbar" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100">
+            <div class="scarcity-fill"></div>
+          </div>
+          <div class="scarcity-foot">Use com moderação: este indicador é uma referência visual (não é contador em tempo real).</div>
+        </div>
 
         <div class="mb-10">
           <p class="text-yellow-500 font-black text-sm mb-3">
@@ -749,9 +1238,10 @@
           </p>
         </div>
 
-        <a href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
+        <a id="offerPrimaryCta"
+           href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
            target="_blank"
-           class="block w-full bg-teal-acs text-white font-black py-5 rounded-2xl uppercase tracking-widest text-sm border"
+           class="block w-full bg-teal-acs text-white font-black py-5 rounded-2xl uppercase tracking-widest text-sm border cta-main"
            style="border-color: rgba(15,23,42,.08);">
           Garantir Meu Kit
         </a>
@@ -761,6 +1251,41 @@
            class="block w-full mt-3 btn-secondary font-black py-5 rounded-2xl uppercase tracking-widest text-sm">
           Garantir Kit + Manual APS 360
         </a>
+
+        <!-- Trust badges -->
+        <div class="trust" aria-label="Selos de confiança">
+          <div class="trust-item">
+            <div class="trust-ico" aria-hidden="true">
+              <!-- cadeado -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7.5 11V8.5a4.5 4.5 0 0 1 9 0V11" stroke="currentColor" stroke-width="2" />
+                <path d="M6 11h12v10H6V11Z" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </div>
+            <div class="trust-txt"><b>Compra Segura (SSL)</b><br/>Checkout Hotmart com pagamento protegido.</div>
+          </div>
+
+          <div class="trust-item">
+            <div class="trust-ico" aria-hidden="true">
+              <!-- raio -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M13 2 3 14h7l-1 8 12-14h-7l-1-6Z" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </div>
+            <div class="trust-txt"><b>Acesso Imediato (E-mail)</b><br/>Você compra e recebe na hora.</div>
+          </div>
+
+          <div class="trust-item">
+            <div class="trust-ico" aria-hidden="true">
+              <!-- arquivo -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-6Z" stroke="currentColor" stroke-width="2" />
+                <path d="M14 2v6h6" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </div>
+            <div class="trust-txt"><b>PDF Pronto para Imprimir</b><br/>Arquivo direto pra prancheta e campo.</div>
+          </div>
+        </div>
 
         <div class="mt-5 space-y-1">
           <p class="text-[12px]" style="color: #94a3b8;">
@@ -774,7 +1299,7 @@
     </div>
   </section>
 
-  <!-- Modal -->
+  <!-- Modal imagens -->
   <div id="imgModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-label="Visualizador de imagem">
     <div class="modal-card">
       <div class="modal-top">
@@ -785,6 +1310,42 @@
       </div>
       <div class="modal-body">
         <img id="modalImg" src="" alt="Imagem ampliada" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast prova social -->
+  <div id="socialToast" aria-live="polite" aria-atomic="true">
+    <div class="toast-card">
+      <div class="toast-dot" aria-hidden="true"></div>
+      <div class="toast-text" id="toastText">Carregando…</div>
+    </div>
+  </div>
+
+  <!-- Cookies LGPD -->
+  <div id="cookieBar" role="region" aria-label="Aviso de cookies">
+    <div class="cookie-inner">
+      <div class="cookie-text">
+        Usamos cookies para melhorar sua experiência e medir desempenho (ex: formulários e rastreamento do checkout).
+      </div>
+      <button id="cookieOk" class="cookie-btn" type="button">Entendi</button>
+    </div>
+  </div>
+
+  <!-- Exit intent modal -->
+  <div id="exitModal" role="dialog" aria-modal="true" aria-label="Antes de sair">
+    <div class="exit-card">
+      <div class="exit-top">
+        <div class="exit-title">Última chance</div>
+        <button class="exit-x" id="exitClose" type="button" aria-label="Fechar">✕</button>
+      </div>
+      <div class="exit-body">
+        <h3>Espera.</h3>
+        <p>Não vai pro campo desprotegido. Pelo menos pega o <b>Checklist Grátis</b> antes de sair.</p>
+        <div class="exit-actions">
+          <a class="exit-primary" href="#checklist">Quero o checklist</a>
+          <button class="exit-secondary" id="exitDismiss" type="button">Agora não</button>
+        </div>
       </div>
     </div>
   </div>
@@ -858,16 +1419,16 @@
         chart.setDatasetVisibility(0, true);
         chart.setDatasetVisibility(1, false);
 
-        bad.className = "p-5 rounded-2xl border-l-4 active-card-red transition-all bg-white border cursor-pointer";
-        good.className = "p-5 rounded-2xl border-l-4 inactive-card transition-all bg-white border cursor-pointer";
+        bad.className = "p-5 rounded-2xl border-l-4 active-card-red transition-all bg-white border cursor-pointer reveal is-visible";
+        good.className = "p-5 rounded-2xl border-l-4 inactive-card transition-all bg-white border cursor-pointer reveal is-visible";
         bad.style.borderLeftColor = '#fb7185';
         good.style.borderLeftColor = 'var(--acs-teal)';
       } else {
         chart.setDatasetVisibility(0, false);
         chart.setDatasetVisibility(1, true);
 
-        good.className = "p-5 rounded-2xl border-l-4 active-card-green transition-all bg-white border cursor-pointer";
-        bad.className = "p-5 rounded-2xl border-l-4 inactive-card transition-all bg-white border cursor-pointer";
+        good.className = "p-5 rounded-2xl border-l-4 active-card-green transition-all bg-white border cursor-pointer reveal is-visible";
+        bad.className = "p-5 rounded-2xl border-l-4 inactive-card transition-all bg-white border cursor-pointer reveal is-visible";
         bad.style.borderLeftColor = '#fb7185';
         good.style.borderLeftColor = 'var(--acs-teal)';
       }
@@ -912,10 +1473,245 @@
       });
     }
 
+    /* FAQ acordeão */
+    function setupFaq(){
+      const items = document.querySelectorAll('.faq-item');
+      items.forEach(item => {
+        const btn = item.querySelector('.faq-btn');
+        const panel = item.querySelector('.faq-panel');
+        if(!btn || !panel) return;
+
+        btn.addEventListener('click', () => {
+          const isOpen = item.classList.contains('is-open');
+
+          // Fecha outros (comportamento mais limpo)
+          items.forEach(other => {
+            if(other === item) return;
+            other.classList.remove('is-open');
+            const b = other.querySelector('.faq-btn');
+            const p = other.querySelector('.faq-panel');
+            if(b) b.setAttribute('aria-expanded', 'false');
+            if(p){
+              p.style.maxHeight = '0px';
+              p.setAttribute('aria-hidden','true');
+            }
+          });
+
+          if(isOpen){
+            item.classList.remove('is-open');
+            btn.setAttribute('aria-expanded', 'false');
+            panel.style.maxHeight = '0px';
+            panel.setAttribute('aria-hidden','true');
+          }else{
+            item.classList.add('is-open');
+            btn.setAttribute('aria-expanded', 'true');
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            panel.setAttribute('aria-hidden','false');
+          }
+        });
+      });
+
+      // Recalcula altura se trocar orientação/tamanho
+      window.addEventListener('resize', () => {
+        document.querySelectorAll('.faq-item.is-open .faq-panel').forEach(panel => {
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+        });
+      });
+    }
+
+    /* Scroll reveal (IntersectionObserver) */
+    function setupScrollReveal(){
+      const els = document.querySelectorAll('.reveal');
+      if(!('IntersectionObserver' in window)){
+        els.forEach(el => el.classList.add('is-visible'));
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(ent => {
+          if(ent.isIntersecting){
+            ent.target.classList.add('is-visible');
+            io.unobserve(ent.target);
+          }
+        });
+      }, { threshold: 0.14 });
+      els.forEach(el => io.observe(el));
+    }
+
+    /* Shine cíclico nos CTAs */
+    function setupShine(){
+      const ctas = document.querySelectorAll('.cta-main');
+      if(!ctas.length) return;
+
+      // dispara logo no início e depois a cada 5s
+      const pulse = () => {
+        ctas.forEach(btn => {
+          btn.classList.remove('shine');
+          // reflow para reiniciar animação
+          void btn.offsetWidth;
+          btn.classList.add('shine');
+        });
+      };
+      pulse();
+      setInterval(pulse, 5000);
+    }
+
+    /* Botão flutuante inteligente: some quando oferta final está visível */
+    function setupSmartFloat(){
+      const floatBtn = document.getElementById('floatCta');
+      const offerCta = document.getElementById('offerPrimaryCta');
+      if(!floatBtn || !offerCta) return;
+
+      if(!('IntersectionObserver' in window)) return;
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(ent => {
+          if(ent.target === offerCta){
+            if(ent.isIntersecting){
+              floatBtn.classList.add('is-hidden');
+            }else{
+              floatBtn.classList.remove('is-hidden');
+            }
+          }
+        });
+      }, { threshold: 0.35 });
+
+      io.observe(offerCta);
+    }
+
+    /* Cookies LGPD */
+    function setupCookies(){
+      const bar = document.getElementById('cookieBar');
+      const ok = document.getElementById('cookieOk');
+      if(!bar || !ok) return;
+
+      const key = 'acs_cookie_ok_v1';
+      const has = localStorage.getItem(key);
+      if(!has){
+        bar.classList.add('show');
+      }
+      ok.addEventListener('click', () => {
+        localStorage.setItem(key, '1');
+        bar.classList.remove('show');
+      });
+    }
+
+    /* Exit-intent (desktop) + fallback mobile (tempo/scroll) */
+    function setupExitIntent(){
+      const modal = document.getElementById('exitModal');
+      const close = document.getElementById('exitClose');
+      const dismiss = document.getElementById('exitDismiss');
+      if(!modal || !close || !dismiss) return;
+
+      const key = 'acs_exit_intent_v1';
+      if(localStorage.getItem(key)) return;
+
+      const open = () => {
+        if(localStorage.getItem(key)) return;
+        modal.classList.add('show');
+        localStorage.setItem(key, '1');
+      };
+      const shut = () => {
+        modal.classList.remove('show');
+      };
+
+      close.addEventListener('click', shut);
+      dismiss.addEventListener('click', shut);
+      modal.addEventListener('click', (e) => {
+        if(e.target === modal) shut();
+      });
+
+      // Desktop: mouse sai pelo topo
+      let armed = true;
+      document.addEventListener('mouseleave', (e) => {
+        if(!armed) return;
+        if(e.clientY <= 0){
+          armed = false;
+          open();
+        }
+      });
+
+      // Mobile fallback: 45s OU 60% scroll
+      setTimeout(() => {
+        if(!localStorage.getItem(key)) open();
+      }, 45000);
+
+      const onScroll = () => {
+        const sc = window.scrollY || document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        if(h > 0 && (sc / h) >= 0.60){
+          window.removeEventListener('scroll', onScroll);
+          if(!localStorage.getItem(key)) open();
+        }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
+
+    /* Prova social toast */
+    function setupSocialToast(){
+      const toast = document.getElementById('socialToast');
+      const text = document.getElementById('toastText');
+      if(!toast || !text) return;
+
+      const names = [
+        ['Maria', 'MG'], ['João', 'SP'], ['Ana', 'BA'], ['Patrícia', 'PE'], ['Carlos', 'RJ'],
+        ['Juliana', 'CE'], ['Fernanda', 'PR'], ['Rita', 'MA'], ['Bruno', 'GO'], ['Luciana', 'PA'],
+        ['Débora', 'SC'], ['Roberto', 'ES'], ['Camila', 'RN'], ['Paulo', 'PI'], ['Vera', 'MT'],
+        ['Suelen', 'RO'], ['Rogério', 'AM'], ['Aline', 'DF'], ['Simone', 'AL'], ['Marcos', 'MS'],
+        ['Letícia', 'PB'], ['Marta', 'SE'], ['Renato', 'TO'], ['Bárbara', 'RS'], ['Nádia', 'AC']
+      ];
+
+      const pick = () => names[Math.floor(Math.random() * names.length)];
+      const show = () => {
+        const [n, uf] = pick();
+        text.innerHTML = `<b>${n} (${uf})</b> acabou de garantir o Kit.`;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 5200);
+      };
+
+      // primeira após 12s, depois a cada 20s
+      setTimeout(() => {
+        show();
+        setInterval(show, 20000);
+      }, 12000);
+    }
+
+    /* Preloader com tempo mínimo + fallback */
+    function setupPreloader(){
+      const pre = document.getElementById('preloader');
+      if(!pre) return;
+
+      const minMs = 900;
+      const start = Date.now();
+
+      const hide = () => {
+        const elapsed = Date.now() - start;
+        const wait = Math.max(0, minMs - elapsed);
+        setTimeout(() => pre.classList.add('hidden'), wait);
+      };
+
+      // normal
+      window.addEventListener('load', hide);
+
+      // fallback se algum recurso travar
+      setTimeout(() => {
+        if(!pre.classList.contains('hidden')) pre.classList.add('hidden');
+      }, 3500);
+    }
+
     window.addEventListener('load', () => {
       initChart();
       setupImageModal();
+      setupFaq();
+      setupScrollReveal();
+      setupShine();
+      setupSmartFloat();
+      setupCookies();
+      setupExitIntent();
+      setupSocialToast();
     });
+
+    // preloader precisa armar antes do load também
+    setupPreloader();
   </script>
 </body>
 </html>
