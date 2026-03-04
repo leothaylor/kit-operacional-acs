@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Kit Operacional ACS — Gestão Cognitiva de Campo</title>
 
-  <!-- SEO básico -->
+  <!-- SEO -->
   <meta name="description" content="Kit Operacional ACS pronto pra imprimir: fichas + calendários + manual. Tire o peso de carregar o sistema na cabeça e recupere o olhar no território." />
 
   <!-- Open Graph / WhatsApp -->
@@ -21,7 +21,7 @@
   <meta name="twitter:description" content="Kit pronto pra imprimir: fichas + calendários + manual. Segurança técnica e paz mental no território." />
   <meta name="twitter:image" content="assets/hero.jpg" />
 
-  <!-- Favicon / Webclip -->
+  <!-- Favicon / Webclip (logo exata) -->
   <link rel="icon" href="assets/logo-ig.png" />
   <link rel="apple-touch-icon" href="assets/logo-ig.png" />
   <meta name="theme-color" content="#78C7C7" />
@@ -30,6 +30,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
 
+  <!-- MailerLite -->
   <script>
     (function(w,d,e,u,f,l,n){
       w[f]=w[f]||function(){(w[f].q=w[f].q||[]).push(arguments);};
@@ -49,6 +50,7 @@
       --acs-line: #e2e8f0;
       --acs-danger: #fb7185;
       --acs-warning: #f59e0b;
+      --pre-bg: #0a192f; /* fundo do preloader (vibe Brittany) */
     }
 
     body{
@@ -61,9 +63,7 @@
     }
 
     /* Scroll offset para âncoras (menu sticky) */
-    section[id], header[id], div[id]{
-      scroll-margin-top: 92px;
-    }
+    section[id], header[id], div[id]{ scroll-margin-top: 92px; }
 
     .container-safe{
       width: 100%;
@@ -123,59 +123,89 @@
     a, button{ -webkit-tap-highlight-color: transparent; }
 
     /* ===========================
-       PRELOADER (logo real)
+       PRELOADER (estilo Brittany) + logo EXATA
        =========================== */
     #preloader{
       position: fixed;
       inset: 0;
-      background: var(--acs-bg);
+      z-index: 9999;
       display: grid;
       place-items: center;
-      z-index: 9999;
+      background: var(--pre-bg);
       transition: opacity .45s ease, visibility .45s ease;
     }
     #preloader.hidden{
       opacity: 0;
       visibility: hidden;
     }
-    .preloader-card{
+
+    .loader-wrap{
+      position: relative;
+      width: 124px;
+      height: 124px;
       display: grid;
       place-items: center;
-      gap: 10px;
-      padding: 18px 22px;
-      border-radius: 20px;
-      background: rgba(255,255,255,.65);
-      border: 1px solid rgba(2,6,23,.08);
     }
-    .preloader-logo{
-      width: 64px;
-      height: 64px;
+
+    .loader-svg{
+      width: 124px;
+      height: 124px;
+      overflow: visible;
+      filter: drop-shadow(0 0 0 rgba(0,0,0,0)); /* sem sombra real */
+    }
+
+    .hex{
+      fill: none;
+      stroke: var(--acs-teal);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 360;
+      stroke-dashoffset: 360;
+      animation: drawHex 1.05s ease-in-out forwards;
+    }
+
+    @keyframes drawHex{
+      to{ stroke-dashoffset: 0; }
+    }
+
+    .loader-logo{
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      transform: scale(.92);
+      animation: logoIn .55s ease forwards;
+      animation-delay: .85s;
+    }
+
+    .loader-logo img{
+      width: 58px;
+      height: 58px;
       border-radius: 999px;
-      border: 2px solid rgba(120,199,199,.55);
-      outline: 2px solid rgba(102,182,182,.22);
-      background: #fff;
-      display: grid;
-      place-items: center;
-      overflow: hidden;
+      background: transparent;
+      display: block;
     }
-    .preloader-logo img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform: scale(1.02);
-      animation: prePulse 1.1s ease-in-out infinite;
+
+    @keyframes logoIn{
+      to{ opacity: 1; transform: scale(1); }
     }
-    .preloader-text{
-      font-size: 10px;
-      font-weight: 900;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: var(--acs-muted);
+
+    .loader-pulse{
+      position: absolute;
+      inset: -6px;
+      border-radius: 999px;
+      border: 1px solid rgba(120,199,199,.22);
+      opacity: 0;
+      animation: pulseRing 1.2s ease-out infinite;
+      animation-delay: 1.05s;
+      pointer-events: none;
     }
-    @keyframes prePulse{
-      0%{ opacity: .85; transform: scale(1.02); }
-      50%{ opacity: 1; transform: scale(1.06); }
-      100%{ opacity: .85; transform: scale(1.02); }
+    @keyframes pulseRing{
+      0%{ opacity: 0; transform: scale(.92); }
+      35%{ opacity: .55; }
+      100%{ opacity: 0; transform: scale(1.08); }
     }
 
     /* Reduced motion */
@@ -184,7 +214,7 @@
     }
 
     /* ===========================
-       CTA PRINCIPAL — Shine + micro-interações (sem sombra)
+       CTA principal — Shine + micro-interações
        =========================== */
     .cta-main{
       position: relative;
@@ -206,9 +236,7 @@
       opacity: 0;
       pointer-events: none;
     }
-    .cta-main.shine::after{
-      animation: shine 1.05s ease-in-out;
-    }
+    .cta-main.shine::after{ animation: shine 1.05s ease-in-out; }
     @keyframes shine{
       0%{ left:-60%; opacity: 0; }
       15%{ opacity: .9; }
@@ -219,21 +247,15 @@
       background-color: var(--acs-teal-dark);
       outline-color: rgba(102,182,182,.65);
     }
-    .cta-main:active{
-      transform: scale(0.95);
-    }
+    .cta-main:active{ transform: scale(0.95); }
 
-    /* CTA secundário (combo) — sem sombra */
     .btn-secondary{
       background: rgba(120,199,199,.10);
       color: var(--acs-ink);
       border: 1px solid rgba(120,199,199,.55);
       transition: transform .30s ease-in-out, background-color .30s ease-in-out;
     }
-    .btn-secondary:hover{
-      background: rgba(120,199,199,.18);
-      transform: scale(1.02);
-    }
+    .btn-secondary:hover{ background: rgba(120,199,199,.18); transform: scale(1.02); }
     .btn-secondary:active{ transform: scale(0.98); }
 
     .btn-secondary-pill{
@@ -269,15 +291,13 @@
     }
 
     /* ===========================
-       BOTÃO FLUTUANTE (REMODELADO)
-       Menor, limpo, “badge” de preço
+       BOTÃO FLUTUANTE (bonito, menor, clean)
        =========================== */
     .float-btn{
       position: fixed;
       right: 16px;
       bottom: calc(16px + env(safe-area-inset-bottom));
       z-index: 999;
-
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -299,18 +319,9 @@
       transition: transform .20s ease, opacity .25s ease, visibility .25s ease, background-color .20s ease;
       backdrop-filter: blur(10px);
     }
-
-    .float-btn:hover{
-      transform: scale(1.03);
-      background: rgba(255,255,255,.98);
-    }
+    .float-btn:hover{ transform: scale(1.03); background: rgba(255,255,255,.98); }
     .float-btn:active{ transform: scale(0.97); }
-
-    .float-btn.is-hidden{
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
+    .float-btn.is-hidden{ opacity: 0; visibility: hidden; pointer-events: none; }
 
     .float-ico{
       width: 34px;
@@ -322,21 +333,14 @@
       border: 1px solid rgba(120,199,199,.35);
       flex: 0 0 auto;
     }
-    .float-ico svg{
-      width: 18px;
-      height: 18px;
-      color: var(--acs-ink);
-    }
+    .float-ico svg{ width: 18px; height: 18px; color: var(--acs-ink); }
 
     .float-label{
       display: grid;
       gap: 2px;
       line-height: 1.1;
     }
-    .float-label span{
-      font-size: 11px;
-      letter-spacing: .10em;
-    }
+    .float-label span{ font-size: 11px; letter-spacing: .10em; }
 
     .float-price{
       background: rgba(120,199,199,.18);
@@ -349,22 +353,14 @@
       white-space: nowrap;
     }
 
-    /* Mobile: centraliza e deixa mais “safe” */
     @media (max-width: 520px){
-      .float-btn{
-        right: 50%;
-        transform: translateX(50%);
-      }
-      .float-btn:hover{
-        transform: translateX(50%) scale(1.03);
-      }
-      .float-btn:active{
-        transform: translateX(50%) scale(0.97);
-      }
+      .float-btn{ right: 50%; transform: translateX(50%); }
+      .float-btn:hover{ transform: translateX(50%) scale(1.03); }
+      .float-btn:active{ transform: translateX(50%) scale(0.97); }
     }
 
     /* ===========================
-       PROVAS SOCIAIS (CARROSSEL)
+       PROVAS SOCIAIS (carrossel)
        =========================== */
     .proofs-track{
       display: grid;
@@ -426,9 +422,7 @@
       object-fit: cover;
       display: block;
     }
-    .proof-foot{
-      padding: 12px 14px 14px;
-    }
+    .proof-foot{ padding: 12px 14px 14px; }
     .proof-foot p{
       margin: 0;
       font-size: 12px;
@@ -437,12 +431,9 @@
     }
 
     /* ===========================
-       FAQ Acordeão
+       FAQ acordeão
        =========================== */
-    .faq-item{
-      border-bottom: 1px solid var(--acs-line);
-      padding-bottom: 12px;
-    }
+    .faq-item{ border-bottom: 1px solid var(--acs-line); padding-bottom: 12px; }
     .faq-btn{
       width: 100%;
       display: flex;
@@ -471,14 +462,8 @@
       font-weight: 900;
       color: var(--acs-muted);
     }
-    .faq-item.is-open .faq-icon{
-      transform: rotate(45deg);
-    }
-    .faq-panel{
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height .35s ease;
-    }
+    .faq-item.is-open .faq-icon{ transform: rotate(45deg); }
+    .faq-panel{ max-height: 0; overflow: hidden; transition: max-height .35s ease; }
     .faq-panel p{
       margin: 0;
       color: var(--acs-muted);
@@ -542,11 +527,7 @@
     /* ===========================
        Trust badges
        =========================== */
-    .trust{
-      margin-top: 14px;
-      display: grid;
-      gap: 8px;
-    }
+    .trust{ margin-top: 14px; display: grid; gap: 8px; }
     .trust-item{
       display:flex;
       align-items:center;
@@ -572,9 +553,7 @@
       color: var(--acs-muted);
       line-height: 1.25;
     }
-    .trust-txt b{
-      color: var(--acs-ink);
-    }
+    .trust-txt b{ color: var(--acs-ink); }
 
     /* ===========================
        Modal imagens
@@ -777,9 +756,7 @@
       font-weight: 900;
       cursor: pointer;
     }
-    .exit-body{
-      padding: 16px;
-    }
+    .exit-body{ padding: 16px; }
     .exit-body h3{
       font-size: 18px;
       font-weight: 900;
@@ -792,10 +769,7 @@
       font-size: 14px;
       line-height: 1.4;
     }
-    .exit-actions{
-      display:grid;
-      gap: 10px;
-    }
+    .exit-actions{ display:grid; gap: 10px; }
     .exit-primary{
       display:block;
       width: 100%;
@@ -831,17 +805,20 @@
 </head>
 
 <body>
-  <!-- PRELOADER -->
+  <!-- PRELOADER (hex desenha + logo exata aparece) -->
   <div id="preloader" aria-hidden="true">
-    <div class="preloader-card">
-      <div class="preloader-logo" aria-hidden="true">
+    <div class="loader-wrap" role="status" aria-label="Carregando">
+      <svg class="loader-svg" viewBox="0 0 120 120" aria-hidden="true">
+        <polygon class="hex" points="60,8 103,33 103,87 60,112 17,87 17,33"></polygon>
+      </svg>
+      <div class="loader-logo" aria-hidden="true">
         <img src="assets/logo-ig.png" alt="" />
       </div>
-      <div class="preloader-text">Carregando…</div>
+      <div class="loader-pulse" aria-hidden="true"></div>
     </div>
   </div>
 
-  <!-- CTA flutuante (mesmo link/UTM) -->
+  <!-- CTA flutuante (mesmo link/UTM original) -->
   <a id="floatCta"
      href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
      target="_blank"
@@ -921,7 +898,6 @@
           </p>
         </div>
 
-        <!-- CTA principal + secundário + checklist -->
         <div class="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
           <a id="heroPrimaryCta"
              href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
@@ -1090,7 +1066,6 @@
     </div>
   </section>
 
-  <!-- BLOCO: apenas 2 links (Kit normal + Kit+Manual) -->
   <section id="blindagem" class="py-12 reveal">
     <div class="container-safe">
       <div class="max-w-3xl mx-auto text-center">
@@ -1363,9 +1338,7 @@
     <div class="modal-card">
       <div class="modal-top">
         <div id="modalTitle" class="modal-title">Imagem</div>
-        <button id="modalClose" class="modal-close" type="button" aria-label="Fechar">
-          ✕ Fechar
-        </button>
+        <button id="modalClose" class="modal-close" type="button" aria-label="Fechar">✕ Fechar</button>
       </div>
       <div class="modal-body">
         <img id="modalImg" src="" alt="Imagem ampliada" />
@@ -1415,15 +1388,13 @@
 
     function initChart(){
       if (typeof Chart === 'undefined') {
-        console.warn('Chart.js ainda não carregado. Tentando novamente em 200ms...');
         setTimeout(initChart, 200);
         return;
       }
       const canvas = document.getElementById('performanceChart');
       if (!canvas) return;
-      const ctx = canvas.getContext('2d');
 
-      chart = new Chart(ctx, {
+      chart = new Chart(canvas.getContext('2d'), {
         type: 'radar',
         data: {
           labels,
@@ -1455,10 +1426,7 @@
             r: {
               angleLines: { color: 'rgba(2, 6, 23, 0.06)' },
               grid: { color: 'rgba(2, 6, 23, 0.06)' },
-              pointLabels: {
-                color: '#64748b',
-                font: { size: 10, weight: 'bold' }
-              },
+              pointLabels: { color: '#64748b', font: { size: 10, weight: 'bold' } },
               ticks: { display: false },
               suggestedMin: 0,
               suggestedMax: 100
@@ -1477,7 +1445,6 @@
       if(mode === 'bad'){
         chart.setDatasetVisibility(0, true);
         chart.setDatasetVisibility(1, false);
-
         bad.className = "p-5 rounded-2xl border-l-4 active-card-red transition-all bg-white border cursor-pointer reveal is-visible";
         good.className = "p-5 rounded-2xl border-l-4 inactive-card transition-all bg-white border cursor-pointer reveal is-visible";
         bad.style.borderLeftColor = '#fb7185';
@@ -1485,13 +1452,11 @@
       } else {
         chart.setDatasetVisibility(0, false);
         chart.setDatasetVisibility(1, true);
-
         good.className = "p-5 rounded-2xl border-l-4 active-card-green transition-all bg-white border cursor-pointer reveal is-visible";
         bad.className = "p-5 rounded-2xl border-l-4 inactive-card transition-all bg-white border cursor-pointer reveal is-visible";
         bad.style.borderLeftColor = '#fb7185';
         good.style.borderLeftColor = 'var(--acs-teal)';
       }
-
       chart.update();
     }
 
@@ -1507,7 +1472,6 @@
         modal.classList.add('is-open');
         document.body.style.overflow = 'hidden';
       }
-
       function closeModal(){
         modal.classList.remove('is-open');
         modalImg.src = '';
@@ -1524,13 +1488,11 @@
 
       closeBtn.addEventListener('click', closeModal);
       modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
-
       window.addEventListener('keydown', (e) => {
         if(e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
       });
     }
 
-    /* FAQ acordeão */
     function setupFaq(){
       const items = document.querySelectorAll('.faq-item');
       items.forEach(item => {
@@ -1574,7 +1536,6 @@
       });
     }
 
-    /* Scroll reveal */
     function setupScrollReveal(){
       const els = document.querySelectorAll('.reveal');
       if(!('IntersectionObserver' in window)){
@@ -1592,7 +1553,6 @@
       els.forEach(el => io.observe(el));
     }
 
-    /* Shine cíclico nos CTAs */
     function setupShine(){
       const ctas = document.querySelectorAll('.cta-main');
       if(!ctas.length) return;
@@ -1608,7 +1568,6 @@
       setInterval(pulse, 5000);
     }
 
-    /* Botão flutuante inteligente: some quando CTA final está visível */
     function setupSmartFloat(){
       const floatBtn = document.getElementById('floatCta');
       const offerCta = document.getElementById('offerPrimaryCta');
@@ -1619,26 +1578,21 @@
       const io = new IntersectionObserver((entries) => {
         entries.forEach(ent => {
           if(ent.target !== offerCta) return;
-          if(ent.isIntersecting){
-            floatBtn.classList.add('is-hidden');
-          }else{
-            floatBtn.classList.remove('is-hidden');
-          }
+          if(ent.isIntersecting) floatBtn.classList.add('is-hidden');
+          else floatBtn.classList.remove('is-hidden');
         });
       }, { threshold: 0.35 });
 
       io.observe(offerCta);
     }
 
-    /* Cookies LGPD */
     function setupCookies(){
       const bar = document.getElementById('cookieBar');
       const ok = document.getElementById('cookieOk');
       if(!bar || !ok) return;
 
       const key = 'acs_cookie_ok_v1';
-      const has = localStorage.getItem(key);
-      if(!has) bar.classList.add('show');
+      if(!localStorage.getItem(key)) bar.classList.add('show');
 
       ok.addEventListener('click', () => {
         localStorage.setItem(key, '1');
@@ -1646,7 +1600,6 @@
       });
     }
 
-    /* Prova social toast */
     function setupSocialToast(){
       const toast = document.getElementById('socialToast');
       const text = document.getElementById('toastText');
@@ -1659,8 +1612,8 @@
         ['Suelen', 'RO'], ['Rogério', 'AM'], ['Aline', 'DF'], ['Simone', 'AL'], ['Marcos', 'MS'],
         ['Letícia', 'PB'], ['Marta', 'SE'], ['Renato', 'TO'], ['Bárbara', 'RS'], ['Nádia', 'AC']
       ];
-
       const pick = () => names[Math.floor(Math.random() * names.length)];
+
       const show = () => {
         const [n, uf] = pick();
         text.innerHTML = `<b>${n} (${uf})</b> acabou de garantir o Kit.`;
@@ -1674,12 +1627,13 @@
       }, 12000);
     }
 
-    /* Preloader */
+    /* PRELOADER: segura tempo mínimo pra ver desenho, e some ao load */
     function setupPreloader(){
       const pre = document.getElementById('preloader');
       if(!pre) return;
 
-      const minMs = 900;
+      const minMs = 1350;   // tempo mínimo pra ver o hex desenhar + logo aparecer
+      const hardMax = 4500; // fallback
       const start = Date.now();
 
       const hide = () => {
@@ -1692,15 +1646,10 @@
 
       setTimeout(() => {
         if(!pre.classList.contains('hidden')) pre.classList.add('hidden');
-      }, 3500);
+      }, hardMax);
     }
 
-    /* ✅ EXIT “RECUPERAR VENDA” (CORRIGIDO)
-       Regra: só pode disparar se:
-       1) o usuário já viu a oferta (#offer) de verdade (armado)
-       2) ele estava com a oferta visível e depois saiu dela SUBINDO
-       3) ele não clicou no CTA de compra
-    */
+    /* EXIT “RECUPERAR VENDA” (só quando subir saindo do offer) */
     function setupExitIntent(){
       const modal = document.getElementById('exitModal');
       const close = document.getElementById('exitClose');
@@ -1726,45 +1675,36 @@
       dismiss.addEventListener('click', shut);
       modal.addEventListener('click', (e) => { if(e.target === modal) shut(); });
 
-      // Se clicar em qualquer CTA de compra, não mostra recuperação
       const markPurchasedIntent = () => localStorage.setItem(key, '1');
       [offerPrimaryCta, heroPrimaryCta, floatCta].forEach(el => {
         if(el) el.addEventListener('click', markPurchasedIntent, { passive: true });
       });
 
-      let armed = false;          // já viu a seção offer (pode armar)
-      let offerVisible = false;   // offer visível agora
-      let wasOfferVisible = false;// offer estava visível no tick anterior
+      let armed = false;
+      let offerVisible = false;
+      let wasOfferVisible = false;
       let lastY = window.scrollY;
 
-      // Observa visibilidade real do offer
       if('IntersectionObserver' in window){
         const io = new IntersectionObserver((entries) => {
           entries.forEach(ent => {
             if(ent.target !== offerSection) return;
             offerVisible = ent.isIntersecting;
-
-            if(offerVisible){
-              armed = true; // só arma ao entrar no offer
-            }
+            if(offerVisible) armed = true;
           });
         }, { threshold: 0.40 });
         io.observe(offerSection);
       } else {
-        // fallback: arma quando passa do topo do offer
         window.addEventListener('scroll', () => {
           if(window.scrollY >= offerSection.offsetTop - 120) armed = true;
         }, { passive: true });
       }
 
-      // Dispara quando: estava visível, saiu, e o scroll atual está SUBINDO
       window.addEventListener('scroll', () => {
         const y = window.scrollY;
         const goingUp = y < lastY;
 
         if(armed && goingUp && wasOfferVisible && !offerVisible){
-          // garantia extra: ele realmente saiu pra cima do offer (não pra baixo)
-          // Se ele saiu pra baixo, y tende a aumentar e não passa aqui
           open();
         }
 
