@@ -50,7 +50,7 @@
       --acs-line: #e2e8f0;
       --acs-danger: #fb7185;
       --acs-warning: #f59e0b;
-      --pre-bg: var(--acs-bg); /* PRELOADER: fundo igual ao site (transição invisível) */
+      --pre-bg: var(--acs-bg);
     }
 
     body{
@@ -62,7 +62,6 @@
       padding-bottom: calc(84px + env(safe-area-inset-bottom));
     }
 
-    /* Scroll offset para âncoras (menu sticky) */
     section[id], header[id], div[id]{ scroll-margin-top: 92px; }
 
     .container-safe{
@@ -122,9 +121,6 @@
 
     a, button{ -webkit-tap-highlight-color: transparent; }
 
-    /* ===========================
-       PRELOADER (igual ao print: arco girando -> anel duplo + logo)
-       =========================== */
     #preloader{
       position: fixed;
       inset: 0;
@@ -175,7 +171,6 @@
       100% { transform: rotate(360deg); stroke-dasharray: 40 260;  opacity: .95; }
     }
 
-    /* Anel final (entra depois) */
     .spinner-ring{
       opacity: 0;
       transform-origin: 60px 60px;
@@ -197,7 +192,6 @@
       stroke-width: 2;
     }
 
-    /* Logo no centro (entra depois) */
     .spinner-logo{
       position: absolute;
       inset: 0;
@@ -219,7 +213,6 @@
       to{ opacity: 1; transform: scale(1); }
     }
 
-    /* Pulso leve (bem sutil) */
     .spinner-pulse{
       position: absolute;
       inset: -8px;
@@ -236,14 +229,10 @@
       100%{ opacity: 0; transform: scale(1.08); }
     }
 
-    /* Reduced motion */
     @media (prefers-reduced-motion: reduce){
       *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
     }
 
-    /* ===========================
-       CTA principal — Shine + micro-interações
-       =========================== */
     .cta-main{
       position: relative;
       overflow: hidden;
@@ -305,9 +294,6 @@
     .active-card-red{ border: 2px solid var(--acs-danger); background-color: rgba(251,113,133,0.10); }
     .inactive-card{ opacity: 0.55; filter: grayscale(1); cursor: pointer; border: 2px solid transparent; }
 
-    /* ===========================
-       SCROLL REVEAL
-       =========================== */
     .reveal{
       opacity: 0;
       transform: translateY(16px);
@@ -318,9 +304,6 @@
       transform: translateY(0);
     }
 
-    /* ===========================
-       BOTÃO FLUTUANTE (bonito, menor, clean)
-       =========================== */
     .float-btn{
       position: fixed;
       right: 16px;
@@ -387,9 +370,6 @@
       .float-btn:active{ transform: translateX(50%) scale(0.97); }
     }
 
-    /* ===========================
-       PROVAS SOCIAIS (carrossel)
-       =========================== */
     .proofs-track{
       display: grid;
       grid-auto-flow: column;
@@ -458,9 +438,6 @@
       line-height: 1.35;
     }
 
-    /* ===========================
-       FAQ acordeão
-       =========================== */
     .faq-item{ border-bottom: 1px solid var(--acs-line); padding-bottom: 12px; }
     .faq-btn{
       width: 100%;
@@ -500,9 +477,6 @@
       padding-bottom: 10px;
     }
 
-    /* ===========================
-       Scarcity bar
-       =========================== */
     .scarcity{
       border: 1px solid rgba(245,158,11,.35);
       background: rgba(245,158,11,.08);
@@ -552,9 +526,6 @@
       color: var(--acs-muted);
     }
 
-    /* ===========================
-       Trust badges
-       =========================== */
     .trust{ margin-top: 14px; display: grid; gap: 8px; }
     .trust-item{
       display:flex;
@@ -583,9 +554,6 @@
     }
     .trust-txt b{ color: var(--acs-ink); }
 
-    /* ===========================
-       Modal imagens
-       =========================== */
     .modal-backdrop{
       position: fixed;
       inset: 0;
@@ -649,9 +617,6 @@
       background: #fff;
     }
 
-    /* ===========================
-       Toast prova social
-       =========================== */
     #socialToast{
       position: fixed;
       left: 16px;
@@ -694,9 +659,6 @@
     }
     .toast-text b{ color: var(--acs-ink); }
 
-    /* ===========================
-       Cookies LGPD (minimal)
-       =========================== */
     #cookieBar{
       position: fixed;
       left: 0;
@@ -739,9 +701,6 @@
     }
     .cookie-btn:hover{ background: rgba(120,199,199,.18); }
 
-    /* ===========================
-       Exit intent modal (aparece só quando subir saindo do offer)
-       =========================== */
     #exitModal{
       position: fixed;
       inset: 0;
@@ -833,13 +792,12 @@
 </head>
 
 <body>
-  <!-- PRELOADER (arco girando -> anel duplo + logo exata) -->
+  <!-- PRELOADER -->
   <div id="preloader" aria-hidden="true">
     <div class="spinner" role="status" aria-label="Carregando">
       <svg class="spinner-svg" viewBox="0 0 120 120" aria-hidden="true">
         <circle class="spinner-track" cx="60" cy="60" r="42"></circle>
         <circle class="spinner-arc" cx="60" cy="60" r="42"></circle>
-
         <g class="spinner-ring">
           <circle class="ring-outer" cx="60" cy="60" r="44"></circle>
           <circle class="ring-inner" cx="60" cy="60" r="36"></circle>
@@ -854,12 +812,17 @@
     </div>
   </div>
 
-  <!-- CTA flutuante (mesmo link/UTM original) -->
-  <a id="floatCta"
-     href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
-     target="_blank"
-     class="float-btn"
-     aria-label="Comprar agora">
+  <!-- CTA flutuante -->
+  <a
+    id="floatCta"
+    data-checkout="kit"
+    data-cta-content="cta_float"
+    href="https://pay.hotmart.com/I101458561P"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="float-btn"
+    aria-label="Comprar agora"
+  >
     <span class="float-ico" aria-hidden="true">
       <svg viewBox="0 0 24 24" fill="none">
         <path d="M7 12h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -935,16 +898,25 @@
         </div>
 
         <div class="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
-          <a id="heroPrimaryCta"
-             href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
+          <a
+             id="heroPrimaryCta"
+             data-checkout="kit"
+             data-cta-content="cta_hero"
+             href="https://pay.hotmart.com/I101458561P"
              target="_blank"
+             rel="noopener noreferrer"
              class="bg-teal-acs text-white font-black px-8 py-4 rounded-xl text-center border cta-main"
              style="border-color: rgba(15,23,42,.08);">
             GARANTIR MEU KIT • R$ 19,90
           </a>
 
-          <a href="https://pay.hotmart.com/I101458561P?checkoutMode=10"
+          <a
+             data-checkout="combo"
+             data-checkout-mode="10"
+             data-cta-content="cta_combo_hero"
+             href="https://pay.hotmart.com/I101458561P?checkoutMode=10"
              target="_blank"
+             rel="noopener noreferrer"
              class="btn-secondary font-black px-8 py-4 rounded-xl text-center">
             BLINDAGEM COMPLETA (KIT + APS 360)
           </a>
@@ -1120,15 +1092,24 @@
         </p>
 
         <div class="flex flex-col sm:flex-row gap-3 justify-center">
-          <a href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
+          <a
+             data-checkout="kit"
+             data-cta-content="cta_blindagem_solo"
+             href="https://pay.hotmart.com/I101458561P"
              target="_blank"
+             rel="noopener noreferrer"
              class="inline-block bg-teal-acs text-white font-black px-8 py-4 rounded-2xl uppercase tracking-widest text-sm border cta-main"
              style="border-color: rgba(15,23,42,.08);">
             Garantir só o Kit
           </a>
 
-          <a href="https://pay.hotmart.com/I101458561P?checkoutMode=10"
+          <a
+             data-checkout="combo"
+             data-checkout-mode="10"
+             data-cta-content="cta_blindagem_combo"
+             href="https://pay.hotmart.com/I101458561P?checkoutMode=10"
              target="_blank"
+             rel="noopener noreferrer"
              class="inline-block btn-secondary font-black px-8 py-4 rounded-2xl uppercase tracking-widest text-sm">
             Garantir Kit + Manual
           </a>
@@ -1185,7 +1166,6 @@
     </div>
   </section>
 
-  <!-- FAQ (acordeão) -->
   <section class="py-16 bg-white reveal" id="faq">
     <div class="container-safe max-w-2xl mx-auto">
       <h2 class="text-center font-black mb-10 uppercase text-xs tracking-[0.3em]" style="color: #94a3b8;">
@@ -1226,7 +1206,6 @@
     </div>
   </section>
 
-  <!-- PROVAS SOCIAIS -->
   <section id="provas" class="py-16 reveal">
     <div class="container-safe">
       <div class="max-w-3xl mx-auto text-center mb-10">
@@ -1269,7 +1248,6 @@
     </div>
   </section>
 
-  <!-- OFERTA FINAL -->
   <section id="offer" class="py-20 text-center reveal">
     <div class="container-safe">
       <div class="bg-white p-10 md:p-14 rounded-[2.5rem] border max-w-lg mx-auto overflow-hidden relative"
@@ -1286,7 +1264,6 @@
           O kit completo (Fichas + Calendários + Manual) pronto para imprimir.
         </p>
 
-        <!-- Scarcity bar -->
         <div class="scarcity mb-8" aria-label="Barra de lote promocional">
           <div class="scarcity-top">
             <span>Lote promocional</span>
@@ -1311,21 +1288,29 @@
           </p>
         </div>
 
-        <a id="offerPrimaryCta"
-           href="https://pay.hotmart.com/I101458561P?utm_source=landingpage&utm_medium=site&utm_campaign=kit_operacional"
+        <a
+           id="offerPrimaryCta"
+           data-checkout="kit"
+           data-cta-content="cta_offer"
+           href="https://pay.hotmart.com/I101458561P"
            target="_blank"
+           rel="noopener noreferrer"
            class="block w-full bg-teal-acs text-white font-black py-5 rounded-2xl uppercase tracking-widest text-sm border cta-main"
            style="border-color: rgba(15,23,42,.08);">
           Garantir Meu Kit
         </a>
 
-        <a href="https://pay.hotmart.com/I101458561P?checkoutMode=10"
+        <a
+           data-checkout="combo"
+           data-checkout-mode="10"
+           data-cta-content="cta_offer_combo"
+           href="https://pay.hotmart.com/I101458561P?checkoutMode=10"
            target="_blank"
+           rel="noopener noreferrer"
            class="block w-full mt-3 btn-secondary font-black py-5 rounded-2xl uppercase tracking-widest text-sm">
           Garantir Kit + Manual APS 360
         </a>
 
-        <!-- Trust badges -->
         <div class="trust" aria-label="Selos de confiança">
           <div class="trust-item">
             <div class="trust-ico" aria-hidden="true">
@@ -1369,7 +1354,6 @@
     </div>
   </section>
 
-  <!-- Modal imagens -->
   <div id="imgModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-label="Visualizador de imagem">
     <div class="modal-card">
       <div class="modal-top">
@@ -1382,7 +1366,6 @@
     </div>
   </div>
 
-  <!-- Toast prova social -->
   <div id="socialToast" aria-live="polite" aria-atomic="true">
     <div class="toast-card">
       <div class="toast-dot" aria-hidden="true"></div>
@@ -1390,7 +1373,6 @@
     </div>
   </div>
 
-  <!-- Cookies LGPD -->
   <div id="cookieBar" role="region" aria-label="Aviso de cookies">
     <div class="cookie-inner">
       <div class="cookie-text">
@@ -1400,7 +1382,6 @@
     </div>
   </div>
 
-  <!-- Exit intent modal -->
   <div id="exitModal" role="dialog" aria-modal="true" aria-label="Antes de sair">
     <div class="exit-card">
       <div class="exit-top">
@@ -1663,13 +1644,12 @@
       }, 12000);
     }
 
-    /* PRELOADER: tempo mínimo pra ver arco + anel + logo, e some ao load */
     function setupPreloader(){
       const pre = document.getElementById('preloader');
       if(!pre) return;
 
-      const minMs = 1250;   // tempo mínimo pra “sentir” o loader
-      const hardMax = 4500; // fallback
+      const minMs = 1250;
+      const hardMax = 4500;
       const start = Date.now();
 
       const hide = () => {
@@ -1685,7 +1665,6 @@
       }, hardMax);
     }
 
-    /* EXIT “RECUPERAR VENDA” (só quando subir saindo do offer) */
     function setupExitIntent(){
       const modal = document.getElementById('exitModal');
       const close = document.getElementById('exitClose');
@@ -1749,6 +1728,98 @@
       }, { passive: true });
     }
 
+    function setupCheckoutTracking(){
+      const HOTMART_BASE = "https://pay.hotmart.com/I101458561P";
+
+      const NOISE_PARAMS = new Set([
+        "fbclid"
+      ]);
+
+      const FALLBACKS = {
+        utm_source: "landingpage",
+        utm_medium: "site",
+        utm_campaign: "kit_operacional",
+        utm_content: "kit_acs"
+      };
+
+      function normalizeValue(value){
+        return typeof value === "string" ? value.trim() : "";
+      }
+
+      function hasMeaningfulValue(value){
+        return normalizeValue(value) !== "";
+      }
+
+      function shouldKeepParam(key, value){
+        if (!hasMeaningfulValue(value)) return false;
+        if (NOISE_PARAMS.has(String(key).toLowerCase())) return false;
+        return true;
+      }
+
+      function getIncomingParams(){
+        const incoming = new URLSearchParams(window.location.search);
+        const clean = new URLSearchParams();
+
+        for (const [key, value] of incoming.entries()){
+          if (shouldKeepParam(key, value)){
+            clean.set(key, value);
+          }
+        }
+
+        if (!clean.get("utm_source")) clean.set("utm_source", FALLBACKS.utm_source);
+        if (!clean.get("utm_medium")) clean.set("utm_medium", FALLBACKS.utm_medium);
+        if (!clean.get("utm_campaign")) clean.set("utm_campaign", FALLBACKS.utm_campaign);
+        if (!clean.get("utm_content")) clean.set("utm_content", FALLBACKS.utm_content);
+
+        return clean;
+      }
+
+      function buildTrackedCheckoutHref(anchor, baseParams){
+        const checkoutMode = normalizeValue(anchor.getAttribute("data-checkout-mode"));
+        const explicitContent = normalizeValue(anchor.getAttribute("data-cta-content"));
+        const href = normalizeValue(anchor.getAttribute("href")) || HOTMART_BASE;
+        const anchorUrl = new URL(href, window.location.origin);
+        const finalUrl = new URL(HOTMART_BASE);
+        const finalParams = new URLSearchParams();
+
+        for (const [key, value] of baseParams.entries()){
+          if (shouldKeepParam(key, value)){
+            finalParams.set(key, value);
+          }
+        }
+
+        for (const [key, value] of anchorUrl.searchParams.entries()){
+          if (key === "checkoutMode") continue;
+          if (!finalParams.has(key) && shouldKeepParam(key, value)){
+            finalParams.set(key, value);
+          }
+        }
+
+        if (explicitContent){
+          finalParams.set("utm_content", explicitContent);
+        }
+
+        if (checkoutMode){
+          finalUrl.searchParams.set("checkoutMode", checkoutMode);
+        }
+
+        for (const [key, value] of finalParams.entries()){
+          finalUrl.searchParams.set(key, value);
+        }
+
+        return finalUrl.toString();
+      }
+
+      const trackedAnchors = document.querySelectorAll("a[data-checkout]");
+      if (!trackedAnchors.length) return;
+
+      const incomingParams = getIncomingParams();
+
+      trackedAnchors.forEach((anchor) => {
+        anchor.href = buildTrackedCheckoutHref(anchor, incomingParams);
+      });
+    }
+
     window.addEventListener('load', () => {
       initChart();
       setupImageModal();
@@ -1759,6 +1830,7 @@
       setupCookies();
       setupSocialToast();
       setupExitIntent();
+      setupCheckoutTracking();
     });
 
     setupPreloader();
