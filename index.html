@@ -617,48 +617,6 @@
       background: #fff;
     }
 
-    #socialToast{
-      position: fixed;
-      left: 16px;
-      bottom: calc(16px + env(safe-area-inset-bottom));
-      z-index: 1500;
-      width: min(360px, calc(100% - 32px));
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(10px);
-      transition: opacity .25s ease, transform .25s ease, visibility .25s ease;
-      pointer-events: none;
-    }
-    #socialToast.show{
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-    .toast-card{
-      background: rgba(255,255,255,.92);
-      border: 1px solid rgba(2,6,23,.10);
-      border-radius: 18px;
-      padding: 12px 14px;
-      display:flex;
-      gap: 10px;
-      align-items:flex-start;
-      backdrop-filter: blur(8px);
-    }
-    .toast-dot{
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: rgba(120,199,199,.95);
-      margin-top: 5px;
-      flex: 0 0 auto;
-    }
-    .toast-text{
-      font-size: 12px;
-      line-height: 1.25;
-      color: var(--acs-muted);
-    }
-    .toast-text b{ color: var(--acs-ink); }
-
     #cookieBar{
       position: fixed;
       left: 0;
@@ -1366,13 +1324,6 @@
     </div>
   </div>
 
-  <div id="socialToast" aria-live="polite" aria-atomic="true">
-    <div class="toast-card">
-      <div class="toast-dot" aria-hidden="true"></div>
-      <div class="toast-text" id="toastText">Carregando…</div>
-    </div>
-  </div>
-
   <div id="cookieBar" role="region" aria-label="Aviso de cookies">
     <div class="cookie-inner">
       <div class="cookie-text">
@@ -1617,33 +1568,6 @@
       });
     }
 
-    function setupSocialToast(){
-      const toast = document.getElementById('socialToast');
-      const text = document.getElementById('toastText');
-      if(!toast || !text) return;
-
-      const names = [
-        ['Maria', 'MG'], ['João', 'SP'], ['Ana', 'BA'], ['Patrícia', 'PE'], ['Carlos', 'RJ'],
-        ['Juliana', 'CE'], ['Fernanda', 'PR'], ['Rita', 'MA'], ['Bruno', 'GO'], ['Luciana', 'PA'],
-        ['Débora', 'SC'], ['Roberto', 'ES'], ['Camila', 'RN'], ['Paulo', 'PI'], ['Vera', 'MT'],
-        ['Suelen', 'RO'], ['Rogério', 'AM'], ['Aline', 'DF'], ['Simone', 'AL'], ['Marcos', 'MS'],
-        ['Letícia', 'PB'], ['Marta', 'SE'], ['Renato', 'TO'], ['Bárbara', 'RS'], ['Nádia', 'AC']
-      ];
-      const pick = () => names[Math.floor(Math.random() * names.length)];
-
-      const show = () => {
-        const [n, uf] = pick();
-        text.innerHTML = `<b>${n} (${uf})</b> acabou de garantir o Kit.`;
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 5200);
-      };
-
-      setTimeout(() => {
-        show();
-        setInterval(show, 20000);
-      }, 12000);
-    }
-
     function setupPreloader(){
       const pre = document.getElementById('preloader');
       if(!pre) return;
@@ -1828,7 +1752,6 @@
       setupShine();
       setupSmartFloat();
       setupCookies();
-      setupSocialToast();
       setupExitIntent();
       setupCheckoutTracking();
     });
